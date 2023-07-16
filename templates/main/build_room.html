@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Building Rooms</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Room Number</th>
+        <th scope="col">Room Name</th>
+        <th scope="col">Building</th>
+        <th scope="col">Building Level</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if build_rooms %}
+            {% for room in build_rooms %}
+                <tr>
+                    <th scope="row">{{room.room_number}}</th>
+                    <th scope="row">{{room.room_name}}</th>
+                    <th scope="row">{{room.building}}</th>
+                    <th scope="row">{{room.building_level}}</th>
+                    <td></td>
+                    <td></td>
+
+                    <td class="text-right">
+                        <a href="{% url 'main_app:edit_build_room' room.id %}" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'main_app:delete_build_room' room.id %}" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Status Bookings</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if status %}
+            {% for stat in status %}
+                <tr>
+                    <th scope="row">{{stat.status}}</th>
+                    <td></td>
+                    <td></td>
+
+                    <td class="text-right">
+                        <a href="{% url 'main_app:edit_status_choice' stat.id %}" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'main_app:delete_status_choice' stat.id %}" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

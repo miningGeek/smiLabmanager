@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Equipment List</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Equipment Name</th>
+        <th scope="col">Building</th>
+        <th scope="col">Level</th>
+        <th scope="col">Room</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if equip_lists %}
+            {% for equipment in equip_lists %}
+                <tr>
+                    <th scope="row">{{equipment.equip_name}}</th>
+                    <th scope="row">{{equipment.building}}</th>
+                    <th scope="row">{{equipment.building_level}}</th>
+                    <th scope="row">{{equipment.room}}</th>
+                    <th scope="row">{{equipment.description}}</th>
+                    <td></td>
+                    
+
+                    <td class="text-right">
+                        <a href="{% url 'main_app:edit_equip_list' equipment.id %}" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'main_app:delete_equip_list' equipment.id %}" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

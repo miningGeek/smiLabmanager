@@ -1,0 +1,80 @@
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img id="uq-logo" class="logo" src="{% static 'main/images/uq-logo1.png' %}">
+  <a class="navbar-brand" href="{% url 'main_app:home' %}">SMI Lab Manager</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="">Sample <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'main_app:booking' %}">Booking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'main_app:booking_calendar' 'Wet Area' %}">Schedule Planning</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'main_app:booking_calendar' 'prep' %}">Cal</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Calendars Pilot Plant
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Sample Prep' %}">Sample Prep</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Sizing Area' %}">Sizing Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Wet Area' %}">Wet Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Area' %}">Flotation Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Bond Room' %}">Bond Room</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Calendars MCRF
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Lab 1' %}">Flotation Lab 1</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Lab 2' %}">Sizing Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Chemistry' %}">Wet Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Xradia' %}">Flotation Area</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Other' %}">Bond Room</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Settings
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="">Monthly Report</a>
+          <a class="dropdown-item" href="">Users</a>
+          <a class="dropdown-item" href="{% url 'main_app:equip_list' %}">Equipment</a>
+          <a class="dropdown-item" href="{% url 'main_app:status_choice' %}">Status choice</a>
+          <a class="dropdown-item" href="{% url 'main_app:research_cent' %}">Centres</a>
+          <a class="dropdown-item" href="{% url 'main_app:group' %}">Group</a>
+
+          <a class="dropdown-item" href="basic_gantt">Anything</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item dropdown-toggle" href="#" id="nestedDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Locations
+          </a>
+          <div class="dropdown-menu" aria-labelledby="nestedDropdown">
+            <a class="dropdown-item" href="{% url 'main_app:building_list' %}">Building/Area</a>
+            <a class="dropdown-item" href="{% url 'main_app:build_level' %}">Level</a>
+            <a class="dropdown-item" href="{% url 'main_app:build_room' %}">Room</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <span class="hello-msg">Hello</span>
+    <span><a class="hello-msg" href="">Logout</a></span>
+  </div>
+</nav>
+
+
