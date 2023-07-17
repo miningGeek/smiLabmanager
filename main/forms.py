@@ -100,13 +100,14 @@ class AddBookingForm(ModelForm):
     group = forms.ModelChoiceField(queryset=Group.objects.all())
     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
     room = forms.ModelChoiceField(queryset=Rooms.objects.all())
+    building = forms.ModelChoiceField(queryset=Building.objects.all())
 
     class Meta:
         model = Booking
         fields = (
             'user_name',
-
             'group',
+            'building',
             'room',
             'equip_name',
             'start_date',
@@ -115,8 +116,8 @@ class AddBookingForm(ModelForm):
         )
         labels = {
             'user_name': 'User Name',
-
             'group': 'Group',
+            'building': 'Building',
             'room': 'Room',
             'equip_name': 'Equipment',
             'start_date': 'Start Date',
@@ -128,7 +129,6 @@ class AddBookingForm(ModelForm):
             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Pending'}),
         }
-
 
 
 class StatusChoiceForm(ModelForm):
