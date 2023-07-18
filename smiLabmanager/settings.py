@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'smiLabmanager.wsgi.application'
 DATABASES = {
   'default': {
         'ENGINE': 'django.db.backends.postgressql',
-       'NAME': '<PGDATABASE>',
-       'USER': '<PGUSER>',
-      'PASSWORD': '<PGPASSWORD>',
-      'HOST': '<PGUSER>',
-      'PORT': '<PGPORT>',
+       'NAME': 'railway',
+       'USER': 'postgres',
+      'PASSWORD': 'WYmzMwj86TpCU4fGcGmK',
+      'HOST': 'containers-us-west-173.railway.app',
+      'PORT': '5566',
     }
 }
 
