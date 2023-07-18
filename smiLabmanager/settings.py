@@ -32,7 +32,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ["<railway URL you will get later on deployment>"]
+CSRF_TRUSTED_ORIGINS = ["https://smilabmanager-production.up.railway.app"]
 # Application definition
 
 INSTALLED_APPS = [
