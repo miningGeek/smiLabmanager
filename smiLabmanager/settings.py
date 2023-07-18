@@ -30,9 +30,9 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ["https://smilabmanager-production.up.railway.app/"]
+CSRF_TRUSTED_ORIGINS = ["https://web-production-b585.up.railway.app/"]
 # Application definition
 
 INSTALLED_APPS = [
