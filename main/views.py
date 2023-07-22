@@ -366,6 +366,19 @@ def next_month(d):
     return month
 
 
+def get_rooms(request):
+    building_id = request.GET.get('building_id')
+    rooms = Rooms.objects.filter(building_id=building_id)
+    data = [{'id': room.id, 'name': room.room_name} for room in rooms]
+    return JsonResponse(data, safe=False)
+
+
+def get_equipments(request):
+    room_id = request.GET.get('room_id')
+    building_id = request.GET.get('building_id')
+    equipments = Equipment.objects.filter(Q(room_id=room_id) & Q(building_id=building_id))
+    data = [{'id': equipment.id, 'name': equipment.equip_name} for equipment in equipments]
+    return JsonResponse(data, safe=False)
 
 
 

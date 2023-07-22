@@ -30,4 +30,6 @@ path('building_list', views.building_list, name="building_list"),
     path('status_choice', views.status_choice, name="status_choice"),
     path('edit_status_choice/<status_id>', views.edit_status_choice, name="edit_status_choice"),
     path('delete_status_choice/<status_id>', views.delete_status_choice, name="delete_status_choice"),
+    path('get_rooms',views.get_rooms, name='get_rooms'),
+    path('get_equipments',views.get_equipments,name='get_equipments'),
 ]
