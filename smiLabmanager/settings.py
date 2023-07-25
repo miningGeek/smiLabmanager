@@ -11,27 +11,32 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+import environ
 import os
 from django.core.asgi import get_asgi_application
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+#initialise our environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u46n(!5fnq*m-8nx+z2fm+=!w%#)6if63p)j(+s21vf(m$@^9#'
+SECRET_KEY = env('SECRET_KEY')
 #SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
+#CSRF_TRUSTED_ORIGINS = ['https://']
 
 # Application definition
 
@@ -82,13 +87,16 @@ WSGI_APPLICATION = 'smiLabmanager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL'))
+}
 
 
 # Password validation
@@ -136,12 +144,11 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #AWS config
-AWS_ACCESS_KEY_ID = "AKIA6CQSPQ3XD6JDUCC7"
-AWS_SECRET_ACCESS_KEY = "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"
+#removed aws access keys and added to railway
 
 #AWS S3 config
 
-AWS_STORAGE_BUCKET_NAME = "smilabmanager"
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
