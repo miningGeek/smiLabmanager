@@ -32,4 +32,7 @@ path('building_list', views.building_list, name="building_list"),
     path('delete_status_choice/<status_id>', views.delete_status_choice, name="delete_status_choice"),
     path('get_rooms',views.get_rooms, name='get_rooms'),
     path('get_equipments',views.get_equipments,name='get_equipments'),
+    path('add_user', views.add_user, name='add_user'),
+    path('login', views.loginPage, name='login'),
+    path('logout', views.logoutUser, name='logout'),
 ]

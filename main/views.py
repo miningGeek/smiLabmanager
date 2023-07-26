@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Q
+from django.contrib.auth import authenticate,login, logout
+from django.contrib import messages
 from django.forms import formset_factory
 import json
 from django.http import JsonResponse
@@ -15,14 +17,41 @@ from datetime import datetime, timedelta, date
 from datetime import datetime
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, StatusChoice
+    ResearchCentres, Group, Booking, StatusChoice, AppUser
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-    AddGroupForm, AddBookingForm, StatusChoiceForm
+    AddGroupForm, AddBookingForm, StatusChoiceForm, AddUserForm
+
+from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user, allowed_users
 
 from .utils import Calendar
 # Create your views here.
 
 
+@unauthenticated_user
+def loginPage(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('main_app:home')
+        else:
+            messages.info(request, 'Username or password is incorrect')
+    context = {}
+    return render(request, 'main/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('main_app:login')
+
+
+@login_required(login_url='main_app:login')
 def home(request):
     bookings = Booking.objects.all()
 
@@ -33,6 +62,7 @@ def home(request):
     return render(request, 'main/home.html', context)
 
 
+@login_required(login_url='main_app:login')
 def building_list(request):
     build_lists = Building.objects.all()
 
@@ -51,6 +81,7 @@ def building_list(request):
     return render(request, 'main/building_list.html', context)
 
 
+@login_required(login_url='main_app:login')
 def edit_building_list(request, building_id):
     build_lists = Building.objects.get(pk=building_id)
     form = AddBuildingForm(request.POST or None, instance=build_lists)
@@ -63,12 +94,14 @@ def edit_building_list(request, building_id):
     return render(request, 'main/edit_building_list.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_building_list(request, building_id):
     build_lists = Building.objects.get(pk=building_id)
     build_lists.delete()
     return redirect('main_app:building_list')
 
 
+@login_required(login_url='main_app:login')
 def build_level(request):
     build_levels = BuildingLevel.objects.all()
 
@@ -86,7 +119,7 @@ def build_level(request):
     }
     return render(request, 'main/build_level.html', context)
 
-
+@login_required(login_url='main_app:login')
 def edit_build_level(request, level_id):
     build_levels = BuildingLevel.objects.get(pk=level_id)
     form = AddBuildingLevelForm(request.POST or None, instance=build_levels)
@@ -98,13 +131,13 @@ def edit_build_level(request, level_id):
     }
     return render(request, 'main/build_level.html', context)
 
-
+@login_required(login_url='main_app:login')
 def delete_build_level(request, level_id):
     build_levels = BuildingLevel.objects.get(pk=level_id)
     build_levels.delete()
     return redirect('main_app:build_level')
 
-
+@login_required(login_url='main_app:login')
 def build_room(request):
     build_rooms = Rooms.objects.all()
 
@@ -122,7 +155,7 @@ def build_room(request):
     }
     return render(request, 'main/build_room.html', context)
 
-
+@login_required(login_url='main_app:login')
 def edit_build_room(request, room_id):
     build_rooms = Rooms.objects.get(pk=room_id)
     form = AddBuildingRoomForm(request.POST or None, instance=build_rooms)
@@ -134,13 +167,13 @@ def edit_build_room(request, room_id):
     }
     return render(request, 'main/build_room.html', context)
 
-
+@login_required(login_url='main_app:login')
 def delete_build_room(request, room_id):
     build_levels = Rooms.objects.get(pk=room_id)
     build_levels.delete()
     return redirect('main_app:build_room')
 
-
+@login_required(login_url='main_app:login')
 def equip_list(request):
     equip_lists = Equipment.objects.all()
 
@@ -158,7 +191,7 @@ def equip_list(request):
     }
     return render(request, 'main/equip_list.html', context)
 
-
+@login_required(login_url='main_app:login')
 def edit_equip_list(request, equip_id):
     equip_lists = Equipment.objects.get(pk=equip_id)
     form = AddEquipmentForm(request.POST or None, instance=equip_lists)
@@ -171,12 +204,14 @@ def edit_equip_list(request, equip_id):
     return render(request, 'main/edit_equip_list.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_equip_list(request, equip_id):
     equip_lists = Equipment.objects.get(pk=equip_id)
     equip_lists.delete()
     return redirect('main_app:equip_list')
 
 
+@login_required(login_url='main_app:login')
 def research_cent(request):
     research_centres = ResearchCentres.objects.all()
 
@@ -195,6 +230,7 @@ def research_cent(request):
     return render(request, 'main/research_cent.html', context)
 
 
+@login_required(login_url='main_app:login')
 def edit_research_cent(request, centre_id):
     centres = ResearchCentres.objects.get(pk=centre_id)
     form = AddResearchCentreForm(request.POST or None, instance=centres)
@@ -207,12 +243,14 @@ def edit_research_cent(request, centre_id):
     return render(request, 'main/edit_research_cent.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_research_cent(request, centre_id):
     centres = ResearchCentres.objects.get(pk=centre_id)
     centres.delete()
     return redirect('main_app:research_cent')
 
 
+@login_required(login_url='main_app:login')
 def group(request):
     groups = Group.objects.all()
 
@@ -231,6 +269,7 @@ def group(request):
     return render(request, 'main/group.html', context)
 
 
+@login_required(login_url='main_app:login')
 def edit_group(request, group_id):
     groups = Group.objects.get(pk=group_id)
     form = AddGroupForm(request.POST or None, instance=groups)
@@ -243,12 +282,14 @@ def edit_group(request, group_id):
     return render(request, 'main/edit_group.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_group(request, group_id):
     groups = Group.objects.get(pk=group_id)
     groups.delete()
     return redirect('main_app:group')
 
 
+@login_required(login_url='main_app:login')
 def booking(request):
     bookings = Booking.objects.all()
 
@@ -268,6 +309,7 @@ def booking(request):
     return render(request, 'main/booking.html', context)
 
 
+@login_required(login_url='main_app:login')
 def edit_booking(request, booking_id):
     bookings = Booking.objects.get(pk=booking_id)
     form = AddBookingForm(request.POST or None, instance=bookings)
@@ -280,12 +322,14 @@ def edit_booking(request, booking_id):
     return render(request, 'main/edit_booking.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_booking(request, booking_id):
     bookings = Booking.objects.get(pk=booking_id)
     bookings.delete()
     return redirect('main_app:home')
 
 
+@login_required(login_url='main_app:login')
 def status_choice(request):
     status = StatusChoice.objects.all()
 
@@ -304,6 +348,7 @@ def status_choice(request):
     return render(request, 'main/status_choice.html', context)
 
 
+@login_required(login_url='main_app:login')
 def edit_status_choice(request, status_id):
     status = StatusChoice.objects.get(pk=status_id)
     form = StatusChoiceForm(request.POST or None, instance=status)
@@ -316,12 +361,14 @@ def edit_status_choice(request, status_id):
     return render(request, 'main/edit_status_choice.html', context)
 
 
+@login_required(login_url='main_app:login')
 def delete_status_choice(request, status_id):
     status = StatusChoice.objects.get(pk=status_id)
     status.delete()
     return redirect('main_app:status_choice')
 
 
+#@login_required(login_url='main_app:login')
 class booking_calendar(generic.ListView):
     model = Booking
     template_name = 'main/booking_calendar.html'
@@ -342,6 +389,7 @@ class booking_calendar(generic.ListView):
         #context['bookings'] = bookings
 
         return context
+
 
 def get_date(req_day):
     if req_day:
@@ -364,11 +412,13 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
+
 def get_rooms(request):
     building_id = request.GET.get('building_id')
     rooms = Rooms.objects.filter(building_id=building_id)
     data = [{'id': room.id, 'name': room.room_name} for room in rooms]
     return JsonResponse(data, safe=False)
+
 
 def get_equipments(request):
     room_id = request.GET.get('room_id')
@@ -376,6 +426,25 @@ def get_equipments(request):
     equipments = Equipment.objects.filter(Q(room_id=room_id) & Q(building_id=building_id))
     data = [{'id': equipment.id, 'name': equipment.equip_name} for equipment in equipments]
     return JsonResponse(data, safe=False)
+
+
+@login_required(login_url='main_app:login')
+def add_user(request):
+    addusers = AppUser.objects.all()
+
+    if request.method == "POST":
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main_app:add_user')
+    else:
+        form = AddUserForm()
+
+    context = {
+        'addusers': addusers,
+        'form': form,
+    }
+    return render(request, 'main/add_user.html', context)
 
 
 

@@ -18,9 +18,9 @@ class Calendar(HTMLCalendar):
         d = ''
         for event in events_per_day:
             if event.equip_name.room.room_name == self.room:
-                d += f'<li> {event.get_html_url()} '
+                d += f'<li> {event.get_html_url()} {event.equip_name} {event.shift} '
                 d += f'<ul>'
-                d += f'<li style="font-size: 8px;">{event.equip_name}+{event.shift}</li>'
+                #d += f'<li style="font-size: 8px;">{event.equip_name}+{event.shift}</li>'
                 d += f'</ul>'
                 d += f'</li>'
 

@@ -40,6 +40,19 @@ class Group(models.Model):
         return self.name
 
 
+class Project(models.Model):
+    proj_number = models.CharField(max_length=10)
+    ciloxis_num = models.CharField(max_length=50)
+    proj_concat = models.CharField(max_length=60, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.proj_concat = f"{self.ciloxis_num}-{self.proj_number}"
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.proj_concat
+
+
 class Client(models.Model):
     company_name = models.CharField(max_length=150)
     site_name = models.CharField(max_length=150)
@@ -93,12 +106,18 @@ class Equipment(models.Model):
 
 class AppUser(models.Model):
     user_name = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    first_name = models.CharField(max_length=25, blank=True)
     centre = models.ForeignKey('ResearchCentres', on_delete=models.SET_NULL, null=True)
     group = models.ForeignKey('Group', on_delete=models.SET_NULL, null=True)
+    status_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.first_name
 
 
 class Booking(models.Model):
     user_name = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
+    proj_data = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
     request_date = models.DateField(auto_now_add=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()

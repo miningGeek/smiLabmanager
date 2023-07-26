@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateField, widgets
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, User, StatusChoice
+    ResearchCentres, Group, Booking, AppUser, StatusChoice
 
 
 class AddBuildingForm(ModelForm):
@@ -106,6 +106,7 @@ class AddBookingForm(ModelForm):
         model = Booking
         fields = (
             'user_name',
+            'proj_data',
             'group',
             'building',
             'room',
@@ -116,6 +117,7 @@ class AddBookingForm(ModelForm):
         )
         labels = {
             'user_name': 'User Name',
+            'proj_data': 'Project Info',
             'group': 'Group',
             'building': 'Building',
             'room': 'Room',
@@ -139,4 +141,24 @@ class StatusChoiceForm(ModelForm):
         )
         widgets = {
             'status': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
+        }
+
+
+class AddUserForm(ModelForm):
+    class Meta:
+        model = AppUser
+        fields = (
+            'user_name',
+            'first_name',
+            'centre',
+            'group',
+            'status_active',
+        )
+        labels = {
+            'user_name': 'User Name',
+            'first_name': 'First Name',
+            'centre': 'Research Centre',
+            'group': 'Group',
+            'status_active': 'Active',
+
         }
