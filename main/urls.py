@@ -33,6 +33,11 @@ path('building_list', views.building_list, name="building_list"),
     path('get_rooms',views.get_rooms, name='get_rooms'),
     path('get_equipments',views.get_equipments,name='get_equipments'),
     path('add_user', views.add_user, name='add_user'),
+    path('edit_add_user/<user_id>', views.edit_add_user, name='edit_add_user'),
+    path('delete_add_user/<user_id>', views.delete_add_user, name='delete_add_user'),
     path('login', views.loginPage, name='login'),
     path('logout', views.logoutUser, name='logout'),
+    path('add_project', views.add_project, name='add_project'),
+    path('edit_add_project/<project_id>', views.edit_add_project, name='edit_add_project'),
+    path('delete_add_project/<project_id>', views.delete_add_project, name='delete_add_project')
 ]

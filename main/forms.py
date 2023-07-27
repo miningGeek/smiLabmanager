@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateField, widgets
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, AppUser, StatusChoice
+    ResearchCentres, Group, Booking, AppUser, StatusChoice, Project
 
 
 class AddBuildingForm(ModelForm):
@@ -113,7 +113,9 @@ class AddBookingForm(ModelForm):
             'equip_name',
             'start_date',
             'shift',
+            'num_hours',
             'status',
+
         )
         labels = {
             'user_name': 'User Name',
@@ -122,14 +124,17 @@ class AddBookingForm(ModelForm):
             'building': 'Building',
             'room': 'Room',
             'equip_name': 'Equipment',
-            'start_date': 'Start Date',
+            'start_date': 'Date required',
             'shift': 'Shift',
+            'num_hours': 'Hours Expected',
             'status': 'Status',
+
         }
         widgets = {
 
             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Pending'}),
+
         }
 
 
@@ -161,4 +166,17 @@ class AddUserForm(ModelForm):
             'group': 'Group',
             'status_active': 'Active',
 
+        }
+
+
+class AddProjectForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = (
+            'proj_number',
+            'ciloxis_num',
+        )
+        labels = {
+            'proj_number': 'Project Number',
+            'ciloxis_num': 'Ciloxis Number',
         }

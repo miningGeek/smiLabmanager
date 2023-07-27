@@ -17,9 +17,9 @@ from datetime import datetime, timedelta, date
 from datetime import datetime
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, StatusChoice, AppUser
+    ResearchCentres, Group, Booking, StatusChoice, AppUser, Project
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-    AddGroupForm, AddBookingForm, StatusChoiceForm, AddUserForm
+    AddGroupForm, AddBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm
 
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users
@@ -299,7 +299,7 @@ def booking(request):
             form.save()
             return redirect('main_app:home')
     else:
-        status = {'status': 'Pending'}
+        status = {'status': 'Approved'}
         form = AddBookingForm(initial=status)
 
     context = {
@@ -447,8 +447,63 @@ def add_user(request):
     return render(request, 'main/add_user.html', context)
 
 
+@login_required(login_url='main_app:login')
+def edit_add_user(request, user_id):
+    user = AppUser.objects.get(pk=user_id)
+    form = AddUserForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:add_user')
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/edit_add_user.html', context)
 
 
+@login_required(login_url='main_app:login')
+def delete_add_user(request, user_id):
+    user = AppUser.objects.get(pk=user_id)
+    user.delete()
+    return redirect('main_app:add_user')
+
+
+@login_required(login_url='main_app:login')
+def add_project(request):
+    projects = Project.objects.all()
+
+    if request.method == "POST":
+        form = AddProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main_app:add_project')
+    else:
+        form = AddProjectForm()
+
+    context = {
+        'projects': projects,
+        'form': form,
+    }
+    return render(request, 'main/add_project.html', context)
+
+
+@login_required(login_url='main_app:login')
+def edit_add_project(request, project_id):
+    projects = Project.objects.get(pk=project_id)
+    form = AddProjectForm(request.POST or None, instance=projects)
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:add_project')
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/edit_add_project.html', context)
+
+
+@login_required(login_url='main_app:login')
+def delete_add_project(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    project.delete()
+    return redirect('main_app:add_project')
 
 
 
