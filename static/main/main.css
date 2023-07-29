@@ -1,4 +1,14 @@
 /* Common styles */
+.header-container {
+  display: flex; /* Set the container as a flexbox */
+  align-items: center; /* Center the items vertically within the container */
+}
+
+.booking-heading {
+  margin-right: 10px; /* Add some spacing between the headings */
+}
+
+
 body {
   font-family: "ptsans", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

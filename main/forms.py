@@ -133,9 +133,92 @@ class AddBookingForm(ModelForm):
         widgets = {
 
             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
+            'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Approved'}),
+
+        }
+
+class AddBookingForm(ModelForm):
+    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
+    room = forms.ModelChoiceField(queryset=Rooms.objects.all())
+    building = forms.ModelChoiceField(queryset=Building.objects.all())
+
+    class Meta:
+        model = Booking
+        fields = (
+            'user_name',
+            'proj_data',
+            'group',
+            'building',
+            'room',
+            'equip_name',
+            'start_date',
+            'shift',
+            'num_hours',
+            'status',
+
+        )
+        labels = {
+            'user_name': 'User Name',
+            'proj_data': 'Project Info',
+            'group': 'Group',
+            'building': 'Building',
+            'room': 'Room',
+            'equip_name': 'Equipment',
+            'start_date': 'Date required',
+            'shift': 'Shift',
+            'num_hours': 'Hours Expected',
+            'status': 'Status',
+
+        }
+        widgets = {
+
+            'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Pending'}),
 
         }
+
+class EditBookingForm(ModelForm):
+    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
+    building = forms.ModelChoiceField(queryset=Building.objects.all(), required=False)
+    room = forms.ModelChoiceField(queryset=Rooms.objects.all(), required=False)
+
+    class Meta:
+        model = Booking
+        fields = (
+            'user_name',
+            'proj_data',
+            'group',
+            'building',
+            'room',
+            'equip_name',
+            'start_date',
+            'shift',
+            'num_hours',
+            'status',
+
+        )
+        labels = {
+            'user_name': 'User Name',
+            'proj_data': 'Project Info',
+            'group': 'Group',
+            'building': 'Building',
+            'room': 'Room',
+            'equip_name': 'Equipment',
+            'start_date': 'Date required',
+            'shift': 'Shift',
+            'num_hours': 'Hours Expected',
+            'status': 'Status',
+
+        }
+        widgets = {
+
+            'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
+
+
+        }
+
 
 
 class StatusChoiceForm(ModelForm):

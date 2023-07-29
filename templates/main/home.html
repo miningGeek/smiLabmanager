@@ -10,18 +10,22 @@
 
 {% block content %}
 
-<h2>Booking List</h2>
+<div class="header-container">
+  <h2 class="booking-heading">Booking List</h2>
+  <h3 class="welcome-heading">Hello {{ app_user }}</h3>
+</div>
 <table class="table table-bordered table-hover table-striped">
     <thead class="thead-dark">
     <tr>
         <th scope="col">User Name</th>
-        <th scope="col">Request Date</th>
         <th scope="col">Room</th>
         <th scope="col">Equipment Name</th>
         <th scope="col">Date Required</th>
         <th scope="col">Shift</th>
         <th scope="col">Status</th>
         <th scope="col">Group</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
         <th scope="col"></th>
 
 
@@ -34,13 +38,12 @@
             {% for booking in bookings %}
                 <tr>
                     <th scope="row">{{booking.user_name}}</th>
-                    <th scope="row">{{booking.request_date}}</th>
                     <th scope="row">{{booking.equip_name.room.room_name}}</th>
                     <th scope="row">{{booking.equip_name.equip_name}}</th>
                     <th scope="row">{{booking.start_date}}</th>
                     <th scope="row">{{booking.shift}}</th>
                     <th scope="row">{{booking.status}}</th>
-                    <th scope="row">{{booking.username.group.name}}</th>
+                    <th scope="row">{{booking.group}}</th>
                     <td></td>
 
                      <td class="text-right">

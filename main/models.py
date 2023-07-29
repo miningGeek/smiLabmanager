@@ -11,6 +11,7 @@ shift = [
 
 status_choice = [
     ('Approved', 'Approved'),
+    ('Completed', 'Completed'),
     ('Rejected', 'Rejected'),
     ('Canceled', 'Canceled'),
     ('Pending', 'Pending'),
@@ -119,6 +120,7 @@ class Booking(models.Model):
     user_name = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
     proj_data = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
     request_date = models.DateField(auto_now_add=True)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()
     shift = models.CharField(max_length=50, choices=shift, blank=True, default='All Day')

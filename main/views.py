@@ -19,7 +19,7 @@ from datetime import datetime
 from .models import Building, BuildingLevel, Rooms, Equipment,\
     ResearchCentres, Group, Booking, StatusChoice, AppUser, Project
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-    AddGroupForm, AddBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm
+    AddGroupForm, AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm
 
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users
@@ -53,12 +53,20 @@ def logoutUser(request):
 
 @login_required(login_url='main_app:login')
 def home(request):
-    bookings = Booking.objects.all()
+    login_user = request.user.username
+    app_user = AppUser.objects.get(user_name=request.user)
+    try:
+        user = AppUser.objects.get(user_name=request.user)  # Get the AppUser object of the logged-in user
+        bookings = Booking.objects.filter(user_name=user).exclude(status='Cancelled').order_by('equip_name__room', 'start_date')
+    except AppUser.DoesNotExist:
+        # Handle the case when the logged-in user doesn't have an associated AppUser object
+        bookings = Booking.objects.none()
 
     context = {
         'bookings': bookings,
+        'login_user': login_user,
+        'app_user': app_user,
     }
-
     return render(request, 'main/home.html', context)
 
 
@@ -312,7 +320,11 @@ def booking(request):
 @login_required(login_url='main_app:login')
 def edit_booking(request, booking_id):
     bookings = Booking.objects.get(pk=booking_id)
-    form = AddBookingForm(request.POST or None, instance=bookings)
+    initial_data = {
+        'building': bookings.equip_name.building if bookings.equip_name else None,
+        'room': bookings.equip_name.room if bookings.equip_name else None,
+    }
+    form = EditBookingForm(request.POST or None, instance=bookings, initial=initial_data)
     if form.is_valid():
         form.save()
         return redirect('main_app:home')
