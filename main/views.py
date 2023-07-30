@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Q
 from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.forms import formset_factory
 import json
@@ -55,12 +56,15 @@ def logoutUser(request):
 def home(request):
     login_user = request.user.username
     app_user = AppUser.objects.get(user_name=request.user)
-    try:
-        user = AppUser.objects.get(user_name=request.user)  # Get the AppUser object of the logged-in user
-        bookings = Booking.objects.filter(user_name=user).exclude(status='Cancelled').order_by('equip_name__room', 'start_date')
-    except AppUser.DoesNotExist:
-        # Handle the case when the logged-in user doesn't have an associated AppUser object
-        bookings = Booking.objects.none()
+    if request.user.groups.filter(name='Coordinator').exists():
+        bookings = Booking.objects.all()
+    else:
+        try:
+            user = AppUser.objects.get(user_name=request.user)  # Get the AppUser object of the logged-in user
+            bookings = Booking.objects.filter(user_name=user).exclude(status='Cancelled').order_by('equip_name__room', 'start_date')
+        except AppUser.DoesNotExist:
+            # Handle the case when the logged-in user doesn't have an associated AppUser object
+            bookings = Booking.objects.none()
 
     context = {
         'bookings': bookings,
