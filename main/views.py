@@ -314,7 +314,7 @@ def booking(request):
             form.save()
             return redirect('main_app:home')
     else:
-        status = {'status': 'Approved'}
+        status = 'Approved'
         #form = AddBookingForm(initial=status)
         form = AddBookingForm(initial={'user_name': app_user, 'status': status})
 
