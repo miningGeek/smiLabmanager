@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateField, widgets
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, AppUser, StatusChoice, Project
+    ResearchCentres,ResearchGroup, Booking, AppUser, StatusChoice, Project
 
 
 class AddBuildingForm(ModelForm):
@@ -79,7 +79,7 @@ class AddGroupForm(ModelForm):
     centres = forms.ModelChoiceField(queryset=ResearchCentres.objects.all())
 
     class Meta:
-        model = Group
+        model = ResearchGroup
         fields = (
             'name',
             'centres',
@@ -93,11 +93,11 @@ class AddGroupForm(ModelForm):
 
 from django.forms import ModelForm, widgets
 from django import forms
-from .models import Booking, Group, Equipment, StatusChoice
+from .models import Booking, Equipment, StatusChoice
 
 
 class AddBookingForm(ModelForm):
-    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    #group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
     room = forms.ModelChoiceField(queryset=Rooms.objects.all())
     building = forms.ModelChoiceField(queryset=Building.objects.all())
@@ -107,7 +107,7 @@ class AddBookingForm(ModelForm):
         fields = (
             'user_name',
             'proj_data',
-            'group',
+
             'building',
             'room',
             'equip_name',
@@ -120,7 +120,7 @@ class AddBookingForm(ModelForm):
         labels = {
             'user_name': 'User Name',
             'proj_data': 'Project Info',
-            'group': 'Group',
+
             'building': 'Building',
             'room': 'Room',
             'equip_name': 'Equipment',
@@ -138,7 +138,7 @@ class AddBookingForm(ModelForm):
         }
 
 class AddBookingForm(ModelForm):
-    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
     room = forms.ModelChoiceField(queryset=Rooms.objects.all())
     building = forms.ModelChoiceField(queryset=Building.objects.all())
@@ -147,8 +147,8 @@ class AddBookingForm(ModelForm):
         model = Booking
         fields = (
             'user_name',
-            'proj_data',
             'group',
+            'proj_data',
             'building',
             'room',
             'equip_name',
@@ -160,8 +160,8 @@ class AddBookingForm(ModelForm):
         )
         labels = {
             'user_name': 'User Name',
-            'proj_data': 'Project Info',
             'group': 'Group',
+            'proj_data': 'Project Info',
             'building': 'Building',
             'room': 'Room',
             'equip_name': 'Equipment',
@@ -178,18 +178,19 @@ class AddBookingForm(ModelForm):
 
         }
 
+
 class EditBookingForm(ModelForm):
-    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
-    building = forms.ModelChoiceField(queryset=Building.objects.all(), required=False)
-    room = forms.ModelChoiceField(queryset=Rooms.objects.all(), required=False)
+    building = forms.ModelChoiceField(queryset=Building.objects.all(), required=True)
+    room = forms.ModelChoiceField(queryset=Rooms.objects.all(), required=True)
 
     class Meta:
         model = Booking
         fields = (
             'user_name',
-            'proj_data',
             'group',
+            'proj_data',
             'building',
             'room',
             'equip_name',
@@ -201,8 +202,8 @@ class EditBookingForm(ModelForm):
         )
         labels = {
             'user_name': 'User Name',
-            'proj_data': 'Project Info',
             'group': 'Group',
+            'proj_data': 'Project Info',
             'building': 'Building',
             'room': 'Room',
             'equip_name': 'Equipment',
@@ -218,7 +219,6 @@ class EditBookingForm(ModelForm):
 
 
         }
-
 
 
 class StatusChoiceForm(ModelForm):
@@ -253,13 +253,17 @@ class AddUserForm(ModelForm):
 
 
 class AddProjectForm(ModelForm):
+    group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
+
     class Meta:
         model = Project
         fields = (
             'proj_number',
             'ciloxis_num',
+            'group'
         )
         labels = {
             'proj_number': 'Project Number',
             'ciloxis_num': 'Ciloxis Number',
+            'group': 'Group',
         }

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import ResearchCentres, Group
+from .models import ResearchCentres
 
 # Register your models here.
-admin.site.register(ResearchCentres)
-admin.site.register(Group)
+

@@ -32,7 +32,16 @@ class ResearchCentres(models.Model):
         return self.name
 
 
-class Group(models.Model):
+# class Group(models.Model):
+#     name = models.CharField(max_length=250)
+#     centres = models.ForeignKey(ResearchCentres, on_delete=models.SET_NULL, null=True)
+#     status_active = models.BooleanField(default=True)
+#
+#     def __str__(self):
+#         return self.name
+
+
+class ResearchGroup(models.Model):
     name = models.CharField(max_length=250)
     centres = models.ForeignKey(ResearchCentres, on_delete=models.SET_NULL, null=True)
     status_active = models.BooleanField(default=True)
@@ -43,7 +52,8 @@ class Group(models.Model):
 
 class Project(models.Model):
     proj_number = models.CharField(max_length=10)
-    ciloxis_num = models.CharField(max_length=50)
+    ciloxis_num = models.CharField(max_length=100)
+    group = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True)
     proj_concat = models.CharField(max_length=60, blank=True)
 
     def save(self, *args, **kwargs):
@@ -109,7 +119,7 @@ class AppUser(models.Model):
     user_name = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     first_name = models.CharField(max_length=25, blank=True)
     centre = models.ForeignKey('ResearchCentres', on_delete=models.SET_NULL, null=True)
-    group = models.ForeignKey('Group', on_delete=models.SET_NULL, null=True)
+    group = models.ForeignKey('ResearchGroup', on_delete=models.SET_NULL, null=True)
     status_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -120,7 +130,7 @@ class Booking(models.Model):
     user_name = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
     proj_data = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
     request_date = models.DateField(auto_now_add=True)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
+    group = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()
     shift = models.CharField(max_length=50, choices=shift, blank=True, default='All Day')

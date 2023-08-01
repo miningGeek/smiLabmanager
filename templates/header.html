@@ -67,16 +67,17 @@
           </div>
         </div>
        </li>
-      {% endif %}
-      {% if request.user.groups.all.0.name == 'Coordinator' %}
+        {% endif %}
+        {% if request.user.groups.all.0.name == 'Coordinator' %}
          <li class="nav-item">
             <a class="nav-link" href="{% url 'main_app:add_project' %}">Project</a>
         </li>
-      {% elif request.user.groups.all.0.name == 'Business' %}
+        {% elif request.user.groups.all.0.name == 'Business' %}
          <li class="nav-item">
             <a class="nav-link" href="{% url 'main_app:add_project' %}">Project</a>
         </li>
       {% endif %}
+
 
     </ul>
     <span class="hello-msg">Hello</span>

@@ -18,9 +18,9 @@ from datetime import datetime, timedelta, date
 from datetime import datetime
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres, Group, Booking, StatusChoice, AppUser, Project
+    ResearchCentres,  Booking, StatusChoice, AppUser, Project, ResearchGroup
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-    AddGroupForm, AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm
+     AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm, AddGroupForm
 
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users
@@ -29,7 +29,7 @@ from .utils import Calendar
 # Create your views here.
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def loginPage(request):
 
     if request.method == 'POST':
@@ -70,6 +70,7 @@ def home(request):
         'bookings': bookings,
         'login_user': login_user,
         'app_user': app_user,
+
     }
     return render(request, 'main/home.html', context)
 
@@ -264,7 +265,7 @@ def delete_research_cent(request, centre_id):
 
 @login_required(login_url='main_app:login')
 def group(request):
-    groups = Group.objects.all()
+    groups = ResearchGroup.objects.all()
 
     if request.method == "POST":
         form = AddGroupForm(request.POST)
@@ -283,7 +284,7 @@ def group(request):
 
 @login_required(login_url='main_app:login')
 def edit_group(request, group_id):
-    groups = Group.objects.get(pk=group_id)
+    groups = ResearchGroup.objects.get(pk=group_id)
     form = AddGroupForm(request.POST or None, instance=groups)
     if form.is_valid():
         form.save()
@@ -296,15 +297,17 @@ def edit_group(request, group_id):
 
 @login_required(login_url='main_app:login')
 def delete_group(request, group_id):
-    groups = Group.objects.get(pk=group_id)
+    groups = ResearchGroup.objects.get(pk=group_id)
     groups.delete()
     return redirect('main_app:group')
 
 
 @login_required(login_url='main_app:login')
 def booking(request):
-    bookings = Booking.objects.all()
-
+    try:
+        app_user = AppUser.objects.get(user_name=request.user)
+    except AppUser.DoesNotExist:
+        return redirect('main_app:home')
     if request.method == "POST":
         form = AddBookingForm(request.POST)
         if form.is_valid():
@@ -312,10 +315,10 @@ def booking(request):
             return redirect('main_app:home')
     else:
         status = {'status': 'Approved'}
-        form = AddBookingForm(initial=status)
+        #form = AddBookingForm(initial=status)
+        form = AddBookingForm(initial={'user_name': app_user, 'status': status})
 
     context = {
-        'bookings': bookings,
         'form': form,
     }
     return render(request, 'main/booking.html', context)
@@ -384,7 +387,7 @@ def delete_status_choice(request, status_id):
     return redirect('main_app:status_choice')
 
 
-#@login_required(login_url='main_app:login')
+
 class booking_calendar(generic.ListView):
     model = Booking
     template_name = 'main/booking_calendar.html'
