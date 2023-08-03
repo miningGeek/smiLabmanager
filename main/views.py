@@ -328,6 +328,7 @@ def booking(request):
 def edit_booking(request, booking_id):
     bookings = Booking.objects.get(pk=booking_id)
     initial_data = {
+        'group': bookings.proj_data.group if bookings.proj_data else None,
         'building': bookings.equip_name.building if bookings.equip_name else None,
         'room': bookings.equip_name.room if bookings.equip_name else None,
     }
@@ -447,9 +448,16 @@ def get_equipments(request):
     return JsonResponse(data, safe=False)
 
 
+def get_projects(request):
+    group_id = request.GET.get('group_id')
+    projects = Project.objects.filter(group_id=group_id)
+    data = [{'id': project.id, 'name': project.proj_concat} for project in projects]
+    return JsonResponse(data, safe=False)
+
+
 @login_required(login_url='main_app:login')
 def add_user(request):
-    addusers = AppUser.objects.all()
+    addusers = AppUser.objects.all().order_by('centre__name', 'group__name')
 
     if request.method == "POST":
         form = AddUserForm(request.POST)

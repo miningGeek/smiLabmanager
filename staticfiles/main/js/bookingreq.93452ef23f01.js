@@ -10,7 +10,15 @@ function intializeGroupAndProjectFuntionality(){
   dropdown.addEventListener('change', function () {
     groupId = this.value;
     console.log('Selected group ID:', groupId);
-
+    var projDataElement = document.getElementById('id_proj_data');
+if (projDataElement) {
+  // The element exists, do something with it
+  projDataElement.disabled = false;
+  // ... other code ...
+} else {
+  // The element doesn't exist, handle the situation
+  console.log("Element with ID 'id_proj_data' not found in the HTML.");
+}
 
     if (groupId) {
       document.querySelector('#id_proj_data').disabled = false;

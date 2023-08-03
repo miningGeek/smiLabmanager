@@ -1,7 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
  intializeBuildingAndRoomFuntionality();
  intializeRoomsAndEqupFuntionality();
+ intializeGroupAndProjectFuntionality();
 });
+
+function intializeGroupAndProjectFuntionality(){
+  var dropdown = document.querySelector('#id_group');
+
+  dropdown.addEventListener('change', function () {
+    groupId = this.value;
+    console.log('Selected group ID:', groupId);
+
+
+    if (groupId) {
+      document.querySelector('#id_proj_data').disabled = false;
+      document.querySelector('#id_proj_data').innerHTML = '<option value="">Loading...</option>';
+      fetch(`/get_projects?group_id=${groupId}`)
+        .then(response => response.json())
+        .then(data => {
+          var projectSelect = document.getElementById('id_proj_data');
+          while (projectSelect.firstChild) {
+            projectSelect.removeChild(projectSelect.firstChild);
+          }
+
+          var defaultOption = document.createElement('option');
+          defaultOption.value = '';
+          defaultOption.textContent = 'Select Project';
+          projectSelect.appendChild(defaultOption);
+
+          data.forEach(function (project) {
+            var option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            projectSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      document.querySelector('#id_proj_data').disabled = true;
+      document.querySelector('#id_proj_data').innerHTML = '<option value="">Select project</option>';
+
+    }
+  });
+}
 
 function intializeBuildingAndRoomFuntionality(){
   var dropdown = document.querySelector('#id_building');
@@ -9,6 +52,7 @@ function intializeBuildingAndRoomFuntionality(){
   dropdown.addEventListener('change', function () {
     buildingId = this.value;
     console.log('Selected building ID:', buildingId);
+
 
     if (buildingId) {
       document.querySelector('#id_room').disabled = false;
@@ -84,3 +128,5 @@ function intializeRoomsAndEqupFuntionality(){
     }
   });
 }
+
+

@@ -27,7 +27,9 @@
           <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Sizing Area' %}">Sizing Area</a>
           <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Wet Area' %}">Wet Area</a>
           <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Area' %}">Flotation Area</a>
-          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Bond Room' %}">Bond Room</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Bond Ball Testing' %}">Bond Room</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Drop Weight Testing' %}">Drop Weight</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Annex' %}">Annex</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -36,10 +38,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Lab 1' %}">Flotation Lab 1</a>
-          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Lab 2' %}">Sizing Area</a>
-          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Chemistry' %}">Wet Area</a>
-          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Xradia' %}">Flotation Area</a>
-          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Other' %}">Bond Room</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Lab 2' %}">Flotation Lab 2</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'Flotation Chemistry' %}">Float Chem</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'XRadia' %}">XRadia</a>
+          <a class="dropdown-item" href="{% url 'main_app:booking_calendar' 'XRF' %}">XRF</a>
         </div>
       </li>
       {% if request.user.groups.all.0.name == 'Coordinator' %}

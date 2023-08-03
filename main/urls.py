@@ -5,7 +5,7 @@ app_name = 'main_app'
 
 urlpatterns = [
     path('', views.home, name='home'),
-path('building_list', views.building_list, name="building_list"),
+    path('building_list', views.building_list, name="building_list"),
     path('edit_building_list/<building_id>', views.edit_building_list, name="edit_building_list"),
     path('delete_building_list/<building_id>', views.delete_building_list, name="delete_building_list"),
     path('build_level', views.build_level, name="build_level"),
@@ -32,6 +32,7 @@ path('building_list', views.building_list, name="building_list"),
     path('delete_status_choice/<status_id>', views.delete_status_choice, name="delete_status_choice"),
     path('get_rooms',views.get_rooms, name='get_rooms'),
     path('get_equipments',views.get_equipments,name='get_equipments'),
+    path('get_projects',views.get_projects, name='get_projects'),
     path('add_user', views.add_user, name='add_user'),
     path('edit_add_user/<user_id>', views.edit_add_user, name='edit_add_user'),
     path('delete_add_user/<user_id>', views.delete_add_user, name='delete_add_user'),
