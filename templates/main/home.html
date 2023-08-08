@@ -49,9 +49,11 @@
                      <td class="text-right">
                         <a href="{% url 'main_app:edit_booking' booking.id %}" class="btn btn-secondary">Edit</a>
                     </td>
+                    {% if request.user.groups.all.0.name == 'Coordinator' %}
                     <td>
                         <a href="{% url 'main_app:delete_booking' booking.id %}" class="btn btn-secondary m1-2">Remove</a>
                     </td>
+                    {% endif %}
 
 
                 </tr>
