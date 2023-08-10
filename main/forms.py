@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateField, widgets
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres,ResearchGroup, Booking, AppUser, StatusChoice, Project
+    ResearchCentres,ResearchGroup, Booking, AppUser, StatusChoice, Project,PrestartCheck
 
 
 class AddBuildingForm(ModelForm):
@@ -269,4 +269,38 @@ class AddProjectForm(ModelForm):
             'proj_number': 'Project Number',
             'ciloxis_num': 'Ciloxis Number',
             'group': 'Group',
+        }
+
+class AddRotapPrestartForm(ModelForm):
+    class Meta:
+        model = PrestartCheck
+        fields = (
+            'username',
+            'equip_name',
+            'prestart_date',
+            'trained',
+            'sop_ra',
+            'test_tag',
+            'elect_lead',
+            'stop_button',
+            'guarding',
+            'dust_extract',
+            'comments',
+        )
+        labels = {
+            'username': 'Select User',
+            'equip_name': 'Select Equipment',
+            'prestart_date': 'Date',
+            'trained': 'Trained & Competent',
+            'sop_ra': 'Read SWM & RA',
+            'test_tag': 'Test & Tag in date',
+            'elect_lead': 'Electrical lead damaged',
+            'stop_button': 'Stop button working',
+            'guarding': 'Guarding in place',
+            'dust_extract': 'Dust Extract on',
+            'comments': 'Any Comments',
+
+        }
+        widgets = {
+            'prestart_date': widgets.DateInput(attrs={'disabled': 'disabled'}),
         }

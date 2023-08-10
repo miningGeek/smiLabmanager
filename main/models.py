@@ -17,6 +17,10 @@ status_choice = [
     ('Pending', 'Pending'),
 ]
 
+confirm = [
+    ('Yes', 'Yes'),
+    ('No', 'No'),
+]
 
 class StatusChoice(models.Model):
     status = models.CharField(max_length=30)
@@ -152,6 +156,34 @@ class Location(models.Model):
 
     def __str__(self):
         return self.location
+
+
+class PrestartCheck(models.Model):
+    username = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
+    equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
+    prestart_date = models.DateField(auto_now_add=True)
+    trained = models.CharField(max_length=10, choices=confirm)
+    sop_ra = models.CharField(max_length=10, choices=confirm)
+    test_tag = models.CharField(max_length=10, choices=confirm, blank=True)
+    elect_lead = models.CharField(max_length=10, choices=confirm, blank=True)
+    stop_button = models.CharField(max_length=10, choices=confirm, blank=True)
+    guarding = models.CharField(max_length=10, choices=confirm, blank=True)
+    interlock = models.CharField(max_length=10, choices=confirm, blank=True)
+    dust_extract = models.CharField(max_length=10, choices=confirm, blank=True)
+    hyd_pump = models.CharField(max_length=10, choices=confirm, blank=True)
+    water_elect =models.CharField(max_length=10, choices=confirm, blank=True)
+    water_level = models.CharField(max_length=10, choices=confirm, blank=True)
+    air_pressure = models.CharField(max_length=10, choices=confirm, blank=True)
+    seals = models.CharField(max_length=10, choices=confirm, blank=True)
+    drainage = models.CharField(max_length=10, choices=confirm, blank=True)
+    housekeeping = models.CharField(max_length=10, choices=confirm, blank=True)
+    comments = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.equip_name
+
+
+
 
 
 

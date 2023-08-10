@@ -20,7 +20,7 @@ from datetime import datetime
 from .models import Building, BuildingLevel, Rooms, Equipment,\
     ResearchCentres,  Booking, StatusChoice, AppUser, Project, ResearchGroup
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-     AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm, AddGroupForm
+     AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm, AddGroupForm, AddRotapPrestartForm
 
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users
@@ -533,7 +533,20 @@ def delete_add_project(request, project_id):
     return redirect('main_app:add_project')
 
 
+def pre_thank(request):
+    context = {}
+    return render(request, 'main/pre_thank', context)
 
+
+def rotap_prestart(request):
+    form = AddRotapPrestartForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:pre_thank')
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/rotap_prestart.html', context)
 
 
 
