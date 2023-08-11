@@ -543,6 +543,8 @@ def rotap_prestart(request):
     if form.is_valid():
         form.save()
         return redirect('main_app:pre_thank')
+    else:
+        form = AddRotapPrestartForm(use_required_attribute=False)
     context = {
         'form': form,
     }
