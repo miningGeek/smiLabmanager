@@ -41,6 +41,8 @@ urlpatterns = [
     path('add_project', views.add_project, name='add_project'),
     path('edit_add_project/<project_id>', views.edit_add_project, name='edit_add_project'),
     path('delete_add_project/<project_id>', views.delete_add_project, name='delete_add_project'),
+    path('equip_group', views.add_equip_group, name='add_equip_group'),
+    path('prestart_list', views.prestart_list, name='prestart_list'),
     path('pre_thank', views.pre_thank, name='pre_thank'),
     path('rotap_prestart', views.rotap_prestart, name='rotap_prestart'),
 

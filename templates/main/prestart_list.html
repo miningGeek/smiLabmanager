@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Completed Prestarts</h2>
+
+
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Equipment Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Comments</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if prestarts %}
+            {% for prestart in prestarts %}
+                <tr>
+                    <th scope="row">{{prestart.username.first_name}}</th>
+                    <th scope="row">{{prestart.equip_name.equip_name}}</th>
+                    <th scope="row">{{prestart.prestart_date}}</th>
+                    <th scope="row">{{prestart.comments}}</th>
+                    <td></td>
+                    <td></td>
+
+
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

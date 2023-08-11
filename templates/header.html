@@ -52,6 +52,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="">Monthly Report</a>
           <a class="dropdown-item" href="{% url 'main_app:add_user' %}">Users</a>
+          <a class="dropdown-item" href="{% url 'main_app:add_equip_group' %}">Equipment Group</a>
           <a class="dropdown-item" href="{% url 'main_app:equip_list' %}">Equipment</a>
           <a class="dropdown-item" href="{% url 'main_app:status_choice' %}">Status choice</a>
           <a class="dropdown-item" href="{% url 'main_app:research_cent' %}">Centres</a>
@@ -79,6 +80,9 @@
             <a class="nav-link" href="{% url 'main_app:add_project' %}">Project</a>
         </li>
       {% endif %}
+      <li class="nav-item">
+            <a class="nav-link" href="{% url 'main_app:prestart_list' %}">Prestarts</a>
+        </li>
 
 
     </ul>

@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, DateField, widgets
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
-    ResearchCentres,ResearchGroup, Booking, AppUser, StatusChoice, Project,PrestartCheck
+    ResearchCentres,ResearchGroup, Booking, AppUser, StatusChoice, Project,PrestartCheck, EquipmentGroup
 
 
 class AddBuildingForm(ModelForm):
@@ -49,7 +49,7 @@ class AddEquipmentForm(ModelForm):
     room = forms.ModelChoiceField(queryset=Rooms.objects.all(), empty_label="Select Room")
     building_level = forms.ModelChoiceField(queryset=BuildingLevel.objects.all(), empty_label="Select Building Level")
     building = forms.ModelChoiceField(queryset=Building.objects.all(), empty_label="Select Building")
-
+    equip_group = forms.ModelChoiceField(queryset=EquipmentGroup.objects.all(),empty_label='Select Equipment Group')
     class Meta:
         model = Equipment
         fields = (
@@ -58,9 +58,23 @@ class AddEquipmentForm(ModelForm):
             'building_level',
             'room',
             'description',
+            'is_equip',
+            'equip_group',
         )
         widgets = {
             'equip_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
+        }
+
+
+class AddEquipGroupForm(ModelForm):
+    class Meta:
+        model = EquipmentGroup
+        fields = (
+            'equip_group',
+
+        )
+        widgets = {
+            'building_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
         }
 
 
@@ -272,6 +286,11 @@ class AddProjectForm(ModelForm):
         }
 
 class AddRotapPrestartForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filter the 'equip_name' field queryset based on equip_group name
+        filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Rotap')
+        self.fields['equip_name'].queryset = filtered_equip_names
     class Meta:
         model = PrestartCheck
         fields = (

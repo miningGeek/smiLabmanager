@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Equipment Group</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Equipment Group</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if groups %}
+            {% for group in groups %}
+                <tr>
+                    <th scope="row">{{group.equip_group}}</th>
+
+                    <td></td>
+                    <td></td>
+
+                    <td class="text-right">
+                        <a href="" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}

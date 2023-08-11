@@ -108,15 +108,25 @@ class Rooms(models.Model):
         return self.room_name
 
 
+class EquipmentGroup(models.Model):
+    equip_group = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.equip_group
+
+
 class Equipment(models.Model):
     equip_name = models.CharField(max_length=250)
     description = models.CharField(max_length=500)
     room = models.ForeignKey(Rooms, on_delete=models.SET_NULL, null=True)
     building_level = models.ForeignKey('BuildingLevel', on_delete=models.SET_NULL, null=True)
     building = models.ForeignKey('Building', on_delete=models.SET_NULL, null=True)
+    is_equip = models.BooleanField(blank=True, null=True)
+    equip_group = models.ForeignKey(EquipmentGroup, on_delete=models.SET_NULL,null=True, blank=True)
 
     def __str__(self):
         return self.equip_name
+
 
 
 class AppUser(models.Model):
