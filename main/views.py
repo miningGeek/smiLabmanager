@@ -535,7 +535,7 @@ def delete_add_project(request, project_id):
 
 def pre_thank(request):
     context = {}
-    return render(request, 'main/pre_thank', context)
+    return render(request, 'main/pre_thank.html', context)
 
 
 def rotap_prestart(request):

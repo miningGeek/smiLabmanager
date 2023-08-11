@@ -277,7 +277,6 @@ class AddRotapPrestartForm(ModelForm):
         fields = (
             'username',
             'equip_name',
-            'prestart_date',
             'trained',
             'sop_ra',
             'test_tag',
@@ -290,7 +289,6 @@ class AddRotapPrestartForm(ModelForm):
         labels = {
             'username': 'Select User',
             'equip_name': 'Select Equipment',
-            'prestart_date': 'Date',
             'trained': 'Trained & Competent',
             'sop_ra': 'Read SWM & RA',
             'test_tag': 'Test & Tag in date',

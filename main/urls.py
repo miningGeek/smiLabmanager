@@ -41,7 +41,7 @@ urlpatterns = [
     path('add_project', views.add_project, name='add_project'),
     path('edit_add_project/<project_id>', views.edit_add_project, name='edit_add_project'),
     path('delete_add_project/<project_id>', views.delete_add_project, name='delete_add_project'),
-    path('pre_thank', views.pre_thank, name='pre-thank'),
+    path('pre_thank', views.pre_thank, name='pre_thank'),
     path('rotap_prestart', views.rotap_prestart, name='rotap_prestart'),
 
 ]
