@@ -42,12 +42,6 @@ urlpatterns = [
     path('edit_add_project/<project_id>', views.edit_add_project, name='edit_add_project'),
     path('delete_add_project/<project_id>', views.delete_add_project, name='delete_add_project'),
     path('equip_group', views.add_equip_group, name='add_equip_group'),
-    path('prestart_list', views.prestart_list, name='prestart_list'),
-    path('pre_thank', views.pre_thank, name='pre_thank'),
-    path('rotap_prestart', views.rotap_prestart, name='rotap_prestart'),
-    path('large_splitter_prestart', views.large_splitter_prestart, name='large_splitter_prestart'),
-    path('small_jaw_prestart', views.small_jaw_prestart, name='small_jaw_prestart'),
-    path('filter_press_prestart', views.filter_press_prestart, name='filter_press_prestart'),
     path('monthly_report_form', views.monthly_report_form, name ='monthly_report_form'),
     path('generate_monthly_report', views.generate_monthly_report, name='generate_monthly_report'),
 
