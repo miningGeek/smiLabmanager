@@ -187,6 +187,9 @@ class PrestartCheck(models.Model):
     seals = models.CharField(max_length=10, choices=confirm, blank=True)
     drainage = models.CharField(max_length=10, choices=confirm, blank=True)
     housekeeping = models.CharField(max_length=10, choices=confirm, blank=True)
+    anti_slip = models.CharField(max_length=10, choices=confirm, blank=True)
+    noise_baffles = models.CharField(max_length=10, choices=confirm, blank=True)
+    filter_mat = models.CharField(max_length=10, choices=confirm, blank=True)
     comments = models.CharField(max_length=500)
 
     def __str__(self):

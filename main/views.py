@@ -16,11 +16,18 @@ from django.utils import timezone
 from datetime import datetime, timedelta, date
 
 from datetime import datetime
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+
+
+
 
 from .models import Building, BuildingLevel, Rooms, Equipment,\
     ResearchCentres,  Booking, StatusChoice, AppUser, Project, ResearchGroup,PrestartCheck, EquipmentGroup
 from .forms import AddBuildingForm, AddBuildingLevelForm, AddBuildingRoomForm, AddEquipmentForm, AddResearchCentreForm, \
-     AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm, AddGroupForm, AddRotapPrestartForm,AddEquipGroupForm
+     AddBookingForm, EditBookingForm, StatusChoiceForm, AddUserForm, AddProjectForm, AddGroupForm, AddRotapPrestartForm,\
+    AddEquipGroupForm,AddSplitterLargePrestartForm, AddSmallJawPrestartForm, AddFilterPressPrestartForm
 
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users
@@ -581,6 +588,123 @@ def rotap_prestart(request):
         'form': form,
     }
     return render(request, 'main/rotap_prestart.html', context)
+
+def large_splitter_prestart(request):
+    form = AddSplitterLargePrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Large-Splitter')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:pre_thank')
+    else:
+        form = AddSplitterLargePrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/large_splitter_prestart.html', context)
+
+
+def small_jaw_prestart(request):
+    form = AddSmallJawPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Small-Jaw')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:pre_thank')
+    else:
+        form = AddSmallJawPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/small_jaw_prestart.html', context)
+
+def filter_press_prestart(request):
+    form = AddFilterPressPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Filter-Pots')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('main_app:pre_thank')
+    else:
+        form = AddFilterPressPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'main/filter_press_prestart.html', context)
+
+
+@login_required(login_url='main_app:login')
+def monthly_report_form(request):
+    return render(request, 'main/monthly_report_form.html')
+
+
+@login_required(login_url='main_app:login')
+def generate_monthly_report(request):
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+    month_name = calendar.month_name[int(month)]
+
+    #find first day of month
+    start_date= datetime.strptime(f"{year}-{month}-01","%Y-%m-%d").date()
+
+    #find last day of month
+    if month == '12':
+        end_date = datetime.strptime(f"{int(year)+1}-01-01", "%Y-%m-%d").date()
+    else:
+        end_date = datetime.strptime(f"{year}-{int(month)+1}-01", "%Y-%m-%d").date()
+
+    filename = f'monthly_report_{month}_{year}.pdf'
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    canv = canvas.Canvas(response, pagesize=A4)
+
+    #draw logo to report
+    img_path = "static/main/images/uq-logo.png"
+    img = ImageReader(img_path)
+    img_width, img_height = img.getSize()
+    canv.drawImage(img, 0, A4[1] - img_height, width=img_width, height=img_height)
+
+
+    num_bookings = Booking.objects.filter(request_date__gte=start_date, request_date__lt=end_date).count()
+
+
+    #Title Section
+    canv.setFillColorRGB(255, 255, 255)
+    canv.setStrokeColorRGB(0.5, 0.5, 0.5)
+    margin = 20
+    title_rect_height = img_height
+    title_rect_y = 715
+    title_rect_width = A4[0] - 2 * margin
+    title_text = f"Laboratory Monthly Report for {month_name} {year}"
+    canv.rect(margin, title_rect_y, title_rect_width, title_rect_height, stroke=1, fill=1)
+    canv.setFillColorRGB(0, 0, 0)
+    #canv.setFont('Helvetica-Bold', 20)
+    title_text_width = canv.stringWidth(title_text, 'Helvetica-Bold', 20)
+    title_x = A4[0] - margin - title_text_width# Calculate the x-coordinate
+    canv.drawString(title_x, title_rect_y + 15, title_text)  # Use calculated x-coordinate
+
+
+    #Body Section
+    canv.setFont("Helvetica", 12)  # set font size back to 12
+    canv.drawString(50, 660, f"This report provides a summary analysis of the SMI Indooroopilly Laboratory")
+    canv.drawString(50, 640, f"The number of equipment bookings for the month was: {num_bookings}")
+
+
+    canv.save()
+    return response
 
 
 
