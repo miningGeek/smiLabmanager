@@ -64,7 +64,7 @@ def home(request):
     login_user = request.user.username
     app_user = AppUser.objects.get(user_name=request.user)
     if request.user.groups.filter(name='Coordinator').exists():
-        bookings = Booking.objects.all().order_by('-start_date')
+        bookings = Booking.objects.all().exclude(status='Cancelled').order_by('-start_date')
     else:
         try:
             user = AppUser.objects.get(user_name=request.user)  # Get the AppUser object of the logged-in user

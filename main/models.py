@@ -13,7 +13,7 @@ status_choice = [
     ('Approved', 'Approved'),
     ('Completed', 'Completed'),
     ('Rejected', 'Rejected'),
-    ('Canceled', 'Canceled'),
+    ('Cancelled', 'Cancelled'),
     ('Pending', 'Pending'),
 ]
 
