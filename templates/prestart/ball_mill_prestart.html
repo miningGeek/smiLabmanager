@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bond Mill Prestart</title>
+    <link rel="stylesheet" href="{% static 'prestart/prestart.css' %}">
 </head>
 <body>
+<h2>Prestart Bond Mill</h2>
 
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
 </body>
 </html>
