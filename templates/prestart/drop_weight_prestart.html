@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drop Weight & SILC Prestart</title>
+</head>
+<body>
+<h2>Prestart Drop Weight & SILC</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+</body>
+</html>
