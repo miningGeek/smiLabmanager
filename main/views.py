@@ -577,7 +577,10 @@ def generate_monthly_report(request):
     if month == '12':
         end_date = datetime.strptime(f"{int(year)+1}-01-01", "%Y-%m-%d").date()
     else:
+
         end_date = datetime.strptime(f"{year}-{int(month)+1}-01", "%Y-%m-%d").date()
+
+    end_date -= timedelta(days=1)
 
     filename = f'monthly_report_{month}_{year}.pdf'
     response = HttpResponse(content_type='application/pdf')
@@ -592,29 +595,30 @@ def generate_monthly_report(request):
     canv.drawImage(img, 0, A4[1] - img_height, width=img_width, height=img_height)
 
 
-    num_bookings = Booking.objects.filter(request_date__gte=start_date, request_date__lt=end_date).count()
+    num_bookings = Booking.objects.filter(start_date__gte=start_date, start_date__lte=end_date).count()
 
 
     #Title Section
-    canv.setFillColorRGB(255, 255, 255)
-    canv.setStrokeColorRGB(0.5, 0.5, 0.5)
-    margin = 20
-    title_rect_height = img_height
-    title_rect_y = 715
-    title_rect_width = A4[0] - 2 * margin
-    title_text = f"Laboratory Monthly Report for {month_name} {year}"
-    canv.rect(margin, title_rect_y, title_rect_width, title_rect_height, stroke=1, fill=1)
-    canv.setFillColorRGB(0, 0, 0)
+    # canv.setFillColorRGB(255, 255, 255)
+    # canv.setStrokeColorRGB(0.5, 0.5, 0.5)
+    # margin = 20
+    # title_rect_height = img_height
+    # title_rect_y = 715
+    # title_rect_width = A4[0] - 2 * margin
+    # title_text = f"Laboratory Monthly Report for {month_name} {year}"
+    # canv.rect(margin, title_rect_y, title_rect_width, title_rect_height, stroke=1, fill=1)
+    # canv.setFillColorRGB(0, 0, 0)
     #canv.setFont('Helvetica-Bold', 20)
-    title_text_width = canv.stringWidth(title_text, 'Helvetica-Bold', 20)
-    title_x = A4[0] - margin - title_text_width# Calculate the x-coordinate
-    canv.drawString(title_x, title_rect_y + 15, title_text)  # Use calculated x-coordinate
+    # title_text_width = canv.stringWidth(title_text, 'Helvetica-Bold', 20)
+    # title_x = A4[0] - margin - title_text_width# Calculate the x-coordinate
+    # canv.drawString(title_x, title_rect_y + 15, title_text)  # Use calculated x-coordinate
 
 
     #Body Section
     canv.setFont("Helvetica", 12)  # set font size back to 12
-    canv.drawString(50, 660, f"This report provides a summary analysis of the SMI Indooroopilly Laboratory")
-    canv.drawString(50, 640, f"The number of equipment bookings for the month was: {num_bookings}")
+    canv.drawString(50, 650, f"This report provides a summary analysis of the SMI Indooroopilly Laboratory")
+    canv.drawString(50, 630, f"The number of equipment bookings for the month was: {num_bookings}")
+
 
 
     canv.save()
