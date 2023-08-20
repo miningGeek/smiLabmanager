@@ -241,3 +241,190 @@ def sonic_bath_prestart(request):
     return render(request, 'prestart/gilson_prestart.html', context)
 
 
+def pulveriser_prestart(request):
+    form = AddPulveriserPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Pulveriser')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddPulveriserPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/pulveriser_prestart.html', context)
+
+
+def large_crusher_prestart(request):
+    form = AddLargeCrusherPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Crusher')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddLargeCrusherPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/large_crusher_prestart.html', context)
+
+def gold_conc_prestart(request):
+    form = AddGoldConcPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Gold-Conc')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddGoldConcPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/gold_conc_prestart.html', context)
+
+
+def vacuum_filter_prestart(request):
+    form = AddVacuumFilterPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Vacuum-Filter')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddVacuumFilterPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/vacuum_filter_prestart.html', context)
+
+
+def float_unit_prestart(request):
+    form = AddFloatUnitPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Flotation-Unit')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddFloatUnitPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/float_unit_prestart.html', context)
+
+
+def fume_hood_prestart(request):
+    form = AddFumeHoodPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Fume-Hood')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddFumeHoodPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/fume_hood_prestart.html', context)
+
+
+def mix_tank_prestart(request):
+    form = AddMixTankPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Mixing-Tank')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddMixTankPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/mix_tank_prestart.html', context)
+
+
+def size_analyser_prestart(request):
+    form = AddSizeAnalyserPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Sizer-Analyser')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddSizeAnalyserPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/size_analyser_prestart.html', context)
+
+
+def cyclone_rig_prestart(request):
+    form = AddCycloneRigPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Cyclone-Rig')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddCycloneRigPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/cyclone_rig_prestart.html', context)
+
+
+def cyclo_sizer_prestart(request):
+    form = AddCycloneSizerPrestartForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Cyclo-Sizer')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddCycloneSizerPrestartForm(use_required_attribute=False)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/cyclo_sizer_prestart.html', context)

@@ -19,6 +19,10 @@ from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from reportlab.platypus import Image, Spacer, SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
+from io import BytesIO
+from PIL import Image as PILImage
 
 
 
@@ -582,6 +586,15 @@ def generate_monthly_report(request):
 
     end_date -= timedelta(days=1)
 
+    #Retreive project data
+    projects = Project.objects.all()
+    project_data = []
+    for project in projects:
+        bookings = Booking.objects.filter(proj_data=project, start_date__gte = start_date, start_date__lte=end_date )
+        total_hours = sum(booking.num_hours or 0 for booking in bookings)
+        project_data.append((project.proj_concat, total_hours))
+
+
     filename = f'monthly_report_{month}_{year}.pdf'
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
@@ -589,13 +602,26 @@ def generate_monthly_report(request):
     canv = canvas.Canvas(response, pagesize=A4)
 
     #draw logo to report
-    img_path = "static/main/images/uq-logo.png"
+    img_path = "static/main/images/uq-logo-text.png"
     img = ImageReader(img_path)
     img_width, img_height = img.getSize()
     canv.drawImage(img, 0, A4[1] - img_height, width=img_width, height=img_height)
 
-
     num_bookings = Booking.objects.filter(start_date__gte=start_date, start_date__lte=end_date).count()
+    doc = SimpleDocTemplate(response, pagesize=A4)
+    elements = []
+    # Display project table
+    table_data = [['Project', 'Total Hours']]
+    table_data.extend(project_data)
+
+    table = Table(table_data)
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        # Additional styling options can be added here
+    ]))
+
+    elements.append(table)
 
 
     #Title Section
@@ -616,11 +642,10 @@ def generate_monthly_report(request):
 
     #Body Section
     canv.setFont("Helvetica", 12)  # set font size back to 12
-    canv.drawString(50, 650, f"This report provides a summary analysis of the SMI Indooroopilly Laboratory")
-    canv.drawString(50, 630, f"The number of equipment bookings for the month was: {num_bookings}")
+    canv.drawString(50, 600, f"This report provides a summary analysis of the SMI Indooroopilly Laboratory {month_name} {year}")
+    canv.drawString(50, 580, f"The number of equipment bookings for the month was: {num_bookings}")
 
-
-
+    doc.build(elements)
     canv.save()
     return response
 

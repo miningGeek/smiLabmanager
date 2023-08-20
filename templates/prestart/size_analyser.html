@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Size Analysers Prestart</title>
+     <style>
+        /* Regular styles for your form elements */
+
+        /* Media query for screens up to 899px wide */
+        @media only screen and (max-width: 899px) {
+            /* Adjust the styles of your form elements for mobile devices here */
+            .form_add {
+                text-align: center;
+            }
+            .form_add form {
+                width: 90%;
+                margin: 0 auto;
+            }
+            .form_add button[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h2>Prestart Sizer Analysers</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+</body>
+</html>

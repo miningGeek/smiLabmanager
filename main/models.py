@@ -20,6 +20,7 @@ status_choice = [
 confirm = [
     ('Yes', 'Yes'),
     ('No', 'No'),
+    ('NA', 'NA'),
 ]
 
 class StatusChoice(models.Model):
@@ -181,6 +182,7 @@ class PrestartCheck(models.Model):
     interlock = models.CharField(max_length=10, choices=confirm, blank=True)
     dust_extract = models.CharField(max_length=10, choices=confirm, blank=True)
     hyd_pump = models.CharField(max_length=10, choices=confirm, blank=True)
+    hyd_oil_level = models.CharField(max_length=10, choices=confirm, blank=True)
     water_elect =models.CharField(max_length=10, choices=confirm, blank=True)
     water_level = models.CharField(max_length=10, choices=confirm, blank=True)
     air_pressure = models.CharField(max_length=10, choices=confirm, blank=True)
@@ -190,6 +192,8 @@ class PrestartCheck(models.Model):
     anti_slip = models.CharField(max_length=10, choices=confirm, blank=True)
     noise_baffles = models.CharField(max_length=10, choices=confirm, blank=True)
     filter_mat = models.CharField(max_length=10, choices=confirm, blank=True)
+    glass_bott = models.CharField(max_length=10, choices=confirm, blank=True)
+    fume_filter = models.CharField(max_length=10, choices=confirm, blank=True)
     comments = models.CharField(max_length=500)
 
     def __str__(self):
