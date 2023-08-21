@@ -44,7 +44,7 @@ def rotap_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddRotapPrestartForm(use_required_attribute=False)
+        form = AddRotapPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
         }
@@ -63,7 +63,7 @@ def large_splitter_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddSplitterLargePrestartForm(use_required_attribute=False)
+        form = AddSplitterLargePrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -82,7 +82,7 @@ def small_jaw_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddSmallJawPrestartForm(use_required_attribute=False)
+        form = AddSmallJawPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -101,7 +101,7 @@ def filter_press_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddFilterPressPrestartForm(use_required_attribute=False)
+        form = AddFilterPressPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -120,7 +120,7 @@ def gilson_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddGilsonPrestartForm(use_required_attribute=False)
+        form = AddGilsonPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -139,7 +139,7 @@ def wet_sieve_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddWetSievePrestartForm(use_required_attribute=False)
+        form = AddWetSievePrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -158,7 +158,7 @@ def ball_mill_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddBallMillPrestartForm(use_required_attribute=False)
+        form = AddBallMillPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -177,7 +177,7 @@ def glass_splitter_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddGlassSplitterPrestartForm(use_required_attribute=False)
+        form = AddGlassSplitterPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -196,7 +196,7 @@ def drop_weight_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddDropWeightPrestartForm(use_required_attribute=False)
+        form = AddDropWeightPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -215,7 +215,7 @@ def wet_mill_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddWetMillPrestartForm(use_required_attribute=False)
+        form = AddWetMillPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -234,7 +234,7 @@ def sonic_bath_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddSonicBathPrestartForm(use_required_attribute=False)
+        form = AddSonicBathPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -253,7 +253,7 @@ def pulveriser_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddPulveriserPrestartForm(use_required_attribute=False)
+        form = AddPulveriserPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -272,7 +272,7 @@ def large_crusher_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddLargeCrusherPrestartForm(use_required_attribute=False)
+        form = AddLargeCrusherPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -290,7 +290,7 @@ def gold_conc_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddGoldConcPrestartForm(use_required_attribute=False)
+        form = AddGoldConcPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -309,7 +309,7 @@ def vacuum_filter_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddVacuumFilterPrestartForm(use_required_attribute=False)
+        form = AddVacuumFilterPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -328,7 +328,7 @@ def float_unit_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddFloatUnitPrestartForm(use_required_attribute=False)
+        form = AddFloatUnitPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -347,7 +347,7 @@ def fume_hood_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddFumeHoodPrestartForm(use_required_attribute=False)
+        form = AddFumeHoodPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -366,7 +366,7 @@ def mix_tank_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddMixTankPrestartForm(use_required_attribute=False)
+        form = AddMixTankPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -385,7 +385,7 @@ def size_analyser_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddSizeAnalyserPrestartForm(use_required_attribute=False)
+        form = AddSizeAnalyserPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -404,7 +404,7 @@ def cyclone_rig_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddCycloneRigPrestartForm(use_required_attribute=False)
+        form = AddCycloneRigPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
@@ -423,7 +423,7 @@ def cyclo_sizer_prestart(request):
         form.save()
         return redirect('prestart_app:pre_thank')
     else:
-        form = AddCycloneSizerPrestartForm(use_required_attribute=False)
+        form = AddCycloneSizerPrestartForm(use_required_attribute=True)
     context = {
         'form': form,
     }
