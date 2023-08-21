@@ -143,7 +143,7 @@ def wet_sieve_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/wet_sieve_prestart.html', context)
 
 
 def ball_mill_prestart(request):
@@ -162,7 +162,7 @@ def ball_mill_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/ball_mill_prestart.html', context)
 
 
 def glass_splitter_prestart(request):
@@ -181,7 +181,7 @@ def glass_splitter_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/glass_splitter.html', context)
 
 
 def drop_weight_prestart(request):
@@ -200,7 +200,7 @@ def drop_weight_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/drop_weight.html', context)
 
 
 def wet_mill_prestart(request):
@@ -219,7 +219,7 @@ def wet_mill_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/wet_mill_prestart.html', context)
 
 
 def sonic_bath_prestart(request):
@@ -238,7 +238,7 @@ def sonic_bath_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/gilson_prestart.html', context)
+    return render(request, 'prestart/sonic_bath_prestart.html', context)
 
 
 def pulveriser_prestart(request):

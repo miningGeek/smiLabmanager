@@ -180,6 +180,7 @@ class PrestartCheck(models.Model):
     stop_button = models.CharField(max_length=10, choices=confirm, blank=True)
     guarding = models.CharField(max_length=10, choices=confirm, blank=True)
     interlock = models.CharField(max_length=10, choices=confirm, blank=True)
+    rubber_strap = models.CharField(max_length=10, choices=confirm, blank=True)
     dust_extract = models.CharField(max_length=10, choices=confirm, blank=True)
     hyd_pump = models.CharField(max_length=10, choices=confirm, blank=True)
     hyd_oil_level = models.CharField(max_length=10, choices=confirm, blank=True)

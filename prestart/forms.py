@@ -21,6 +21,7 @@ class AddRotapPrestartForm(ModelForm):
             'elect_lead',
             'stop_button',
             'guarding',
+            'rubber_strap',
             'dust_extract',
             'comments',
         )
@@ -33,6 +34,7 @@ class AddRotapPrestartForm(ModelForm):
             'elect_lead': 'Electrical lead undamaged',
             'stop_button': 'Stop button working',
             'guarding': 'Guarding in place',
+            'rubber_strap': 'Rubber strap in good condition',
             'dust_extract': 'Dust Extract on',
             'comments': 'Any Comments',
 
