@@ -10,6 +10,7 @@ class AddRotapPrestartForm(ModelForm):
         # Filter the 'equip_name' field queryset based on equip_group name
         filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Rotap')
         self.fields['equip_name'].queryset = filtered_equip_names
+
     class Meta:
         model = PrestartCheck
         fields = (
@@ -42,6 +43,7 @@ class AddRotapPrestartForm(ModelForm):
         widgets = {
             'prestart_date': widgets.DateInput(attrs={'disabled': 'disabled'}),
         }
+
 
 class AddSplitterLargePrestartForm(ModelForm):
     def __init__(self, *args, **kwargs):
