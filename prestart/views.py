@@ -181,7 +181,7 @@ def glass_splitter_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/glass_splitter.html', context)
+    return render(request, 'prestart/glass_splitter_prestart.html', context)
 
 
 def drop_weight_prestart(request):
@@ -200,7 +200,7 @@ def drop_weight_prestart(request):
     context = {
         'form': form,
     }
-    return render(request, 'prestart/drop_weight.html', context)
+    return render(request, 'prestart/drop_weight_prestart.html', context)
 
 
 def wet_mill_prestart(request):
