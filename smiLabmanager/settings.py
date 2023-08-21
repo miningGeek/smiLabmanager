@@ -27,12 +27,12 @@ environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['smilabmanager-production-f50c.up.railway.app','*']
 
@@ -153,19 +153,5 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#AWS config
-#removed aws access keys and added to railway
 
-
-#AWS S3 config
-#
-# AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-#
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-#
-# AWS_S3_FILE_OVERWRITE = False
 
