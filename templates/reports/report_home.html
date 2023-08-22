@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            display: flex;
+        }
+        .chart {
+            flex: 1;
+            max-height: 400px;
+            max-width: 600px;
+            margin-right: 40px; /* Add margin for spacing between charts */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Report Dashboard</h2>
+    <div class="chart-container">
+        <div class="chart">
+            <canvas id="hoursChart"></canvas>
+            <script>
+                var hoursCtx = document.getElementById('hoursChart').getContext('2d');
+                var hoursLabels = {{ labels_hours | safe }};
+                var hoursData = {{ data_hours | safe }};
+
+                var hoursChart = new Chart(hoursCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: hoursLabels,
+                        datasets: [{
+                            label: 'Total Hours Booked',
+                            data: hoursData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="chart">
+            <canvas id="projectsChart"></canvas>
+            <script>
+                var projectsCtx = document.getElementById('projectsChart').getContext('2d');
+                var projectsLabels = {{ labels_projects | safe }};
+                var projectsData = {{ data_projects | safe }};
+
+                var projectsChart = new Chart(projectsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: projectsLabels,
+                        datasets: [{
+                            label: 'Number of Projects',
+                            data: projectsData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+    <div class="chart-container">
+        <div class="chart">
+            <canvas id="prestartChart"></canvas>
+            <script>
+                var prestartCtx = document.getElementById('prestartChart').getContext('2d');
+                var prestartLabels = {{ labels_prestart | safe }};
+                var prestartData = {{ data_prestart | safe }};
+
+                var prestartChart = new Chart(prestartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: prestartLabels,
+                        datasets: [{
+                            label: 'PrestartCheck Count',
+                            data: prestartData,
+                            backgroundColor: 'rgba(100, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+{% endblock %}

@@ -92,7 +92,34 @@
       <li class="nav-item">
             <a class="nav-link" href="{% url 'prestart_app:prestart_list' %}">Prestarts</a>
         </li>
+      {% if request.user.groups.all.0.name == 'Coordinator' %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reports
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'report_app:report_home' %}">Dashboard</a>
+          <a class="dropdown-item" href="">Report 2</a>
+          <a class="dropdown-item" href="">Report 3</a>
+          <a class="dropdown-item" href="">Report 4</a>
+          <a class="dropdown-item" href="">Report 5</a>
+        </div>
+      </li>
 
+      {% elif request.user.groups.all.0.name == 'Business' %}
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reports
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'report_app:report_home' %}">Dashboard</a>
+          <a class="dropdown-item" href="">Report 2</a>
+          <a class="dropdown-item" href="">Report 3</a>
+          <a class="dropdown-item" href="">Report 4</a>
+          <a class="dropdown-item" href="">Report 5</a>
+        </div>
+      </li>
+      {% endif %}
 
     </ul>
     <span class="hello-msg">Hello</span>
