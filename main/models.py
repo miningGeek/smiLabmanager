@@ -140,6 +140,9 @@ class AppUser(models.Model):
     def __str__(self):
         return self.first_name
 
+    class Meta:
+        ordering = ['user_name__username']
+
 
 class Booking(models.Model):
     user_name = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
