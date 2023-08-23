@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['smilabmanager-production-f50c.up.railway.app','*']
 

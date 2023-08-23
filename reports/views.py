@@ -46,15 +46,20 @@ def report_home(request):
 
     labels_hours = [datetime.strptime(month, '%Y-%m').strftime('%m-%Y') for month in months_hours.keys()]
     data_hours = list(months_hours.values())
+    sorted_hours_data = sorted(zip(labels_hours, data_hours), key=lambda x: x[0])
 
-    labels_projects = [datetime(month['year'], month['month'], 1).strftime('%m-%Y') for month in months_projects]
+    # Unpack the sorted data
+    labels_hours = [label for label, _ in sorted_hours_data]
+    data_hours = [data for _, data in sorted_hours_data]
+
+    labels_projects = sorted([datetime(month['year'], month['month'], 1).strftime('%m-%Y') for month in months_projects])
     data_projects = [month['projects_count'] for month in months_projects]
 
-    labels_prestart = [f"{month['month']}-{month['year']}" for month in months_prestart]
+    labels_prestart = sorted([f"{month['month']}-{month['year']}" for month in months_prestart])
     data_prestart = [month['count'] for month in months_prestart]
 
-    labels_hours.reverse()
-    data_hours.reverse()
+    #labels_hours.reverse()
+    #data_hours.reverse()
 
     context = {
         'labels_hours': labels_hours,
