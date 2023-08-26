@@ -14,9 +14,11 @@ from main.models import Booking, Project, PrestartCheck
 def report_home(request):
     today = timezone.now().date()
     twelve_months_ago = today - timedelta(days=365)
+    three_months_ago = today - timedelta(days=90)
 
     # Retrieve booking data for the last 12 months
     bookings = Booking.objects.filter(start_date__gte=twelve_months_ago)
+    bookings_days = Booking.objects.filter(start_date__gte = three_months_ago)
 
     # Calculate total hours for each month
     months_hours = {}
@@ -42,6 +44,15 @@ def report_home(request):
         .annotate(count=Count('id')) \
         .order_by('prestart_date__year', 'prestart_date__month')
 
+    # Calculate number of bookings per day for last 3 months
+    booking_count_per_day = {}
+    for booking in bookings_days:
+        day = booking.start_date
+        if day in booking_count_per_day:
+            booking_count_per_day[day]+=1
+        else:
+            booking_count_per_day[day] =1
+
     # Prepare data for chart
 
     labels_hours = [datetime.strptime(month, '%Y-%m').strftime('%m-%Y') for month in months_hours.keys()]
@@ -58,6 +69,10 @@ def report_home(request):
     labels_prestart = sorted([f"{month['month']}-{month['year']}" for month in months_prestart])
     data_prestart = [month['count'] for month in months_prestart]
 
+    #labels_days = list(booking_count_per_day.keys())
+    labels_days = [day.strftime('%d-%m-%y') for day in booking_count_per_day.keys()]
+    data_days = list(booking_count_per_day.values())
+
     #labels_hours.reverse()
     #data_hours.reverse()
 
@@ -68,6 +83,8 @@ def report_home(request):
         'data_projects': data_projects,
         'labels_prestart': labels_prestart,
         'data_prestart': data_prestart,
+        'labels_days': labels_days,
+        'data_days': data_days,
     }
 
 

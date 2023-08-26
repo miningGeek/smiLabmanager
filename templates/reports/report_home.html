@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css_files %}
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .chart-container {
@@ -13,6 +14,7 @@
             max-width: 600px;
             margin-right: 40px; /* Add margin for spacing between charts */
         }
+
     </style>
 {% endblock %}
 
@@ -109,4 +111,38 @@
             </script>
         </div>
     </div>
+    <div class="chart-container">
+            <div class="chart">
+                <canvas id="BookingDayChart"></canvas>
+                <script>
+                    var bookingdaysCtx = document.getElementById('BookingDayChart').getContext('2d');
+                    var bookingdaysLabels = {{ labels_days | safe }};
+                    var bookingdaysData = {{ data_days | safe }};
+
+                    var BookingDayChart = new Chart(bookingdaysCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: bookingdaysLabels,
+                            datasets: [{
+                                label: 'Bookings per Day Count',
+                                data: bookingdaysData,
+                                backgroundColor: 'rgba(100, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+    </div>
+
+
 {% endblock %}
