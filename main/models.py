@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
 
 # Create your models here.
 shift = [
@@ -16,7 +17,10 @@ status_choice = [
     ('Cancelled', 'Cancelled'),
     ('Pending', 'Pending'),
 ]
-
+basic_confirm = [
+    ('Yes', 'Yes'),
+    ('No', 'No'),
+]
 confirm = [
     ('Yes', 'Yes'),
     ('No', 'No'),
@@ -175,11 +179,11 @@ class Location(models.Model):
 class PrestartCheck(models.Model):
     username = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
-    prestart_date = models.DateField(auto_now_add=True)
-    trained = models.CharField(max_length=10, choices=confirm)
-    sop_ra = models.CharField(max_length=10, choices=confirm)
-    test_tag = models.CharField(max_length=10, choices=confirm, blank=True)
-    elect_lead = models.CharField(max_length=10, choices=confirm, blank=True)
+    prestart_date = models.DateTimeField(default=timezone.now)
+    trained = models.CharField(max_length=10, choices=basic_confirm)
+    sop_ra = models.CharField(max_length=10, choices=basic_confirm)
+    test_tag = models.CharField(max_length=10, choices=basic_confirm, blank=True)
+    elect_lead = models.CharField(max_length=10, choices=basic_confirm, blank=True)
     stop_button = models.CharField(max_length=10, choices=confirm, blank=True)
     guarding = models.CharField(max_length=10, choices=confirm, blank=True)
     interlock = models.CharField(max_length=10, choices=confirm, blank=True)
@@ -198,7 +202,7 @@ class PrestartCheck(models.Model):
     filter_mat = models.CharField(max_length=10, choices=confirm, blank=True)
     glass_bott = models.CharField(max_length=10, choices=confirm, blank=True)
     fume_filter = models.CharField(max_length=10, choices=confirm, blank=True)
-    comments = models.CharField(max_length=500)
+    comments = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return self.equip_name

@@ -42,6 +42,7 @@ class AddRotapPrestartForm(ModelForm):
         }
         widgets = {
             'prestart_date': widgets.DateInput(attrs={'disabled': 'disabled'}),
+            'comments': forms.widgets.Textarea(attrs={'required': False, 'placeholder': 'Optional comments'}),
         }
 
 
