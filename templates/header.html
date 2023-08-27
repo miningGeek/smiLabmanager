@@ -59,7 +59,7 @@
           Settings
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'main_app:monthly_report_form' %}">Monthly Report</a>
+
           <a class="dropdown-item" href="{% url 'main_app:add_user' %}">Users</a>
           <a class="dropdown-item" href="{% url 'main_app:add_equip_group' %}">Equipment Group</a>
           <a class="dropdown-item" href="{% url 'main_app:equip_list' %}">Equipment</a>
@@ -99,10 +99,11 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'report_app:report_home' %}">Dashboard</a>
-          <a class="dropdown-item" href="">Report 2</a>
-          <a class="dropdown-item" href="">Report 3</a>
-          <a class="dropdown-item" href="">Report 4</a>
-          <a class="dropdown-item" href="">Report 5</a>
+          <a class="dropdown-item" href="">APPCO Report</a>
+          <a class="dropdown-item" href="">Separation Report</a>
+          <a class="dropdown-item" href="">Flot Chem Report</a>
+          <a class="dropdown-item" href="">Min Rehab Report</a>
+          <a class="dropdown-item" href="{% url 'main_app:monthly_report_form' %}">Monthly Report</a>
         </div>
       </li>
 
