@@ -650,7 +650,30 @@ def generate_monthly_report(request):
     return response
 
 
+def equip_list_search(request):
+    equip_sort_list = Equipment.objects.all().order_by('equip_name')
 
+    if request.method == 'POST':
+        if 'equipment_sort' in request.POST:
+            equip_sort = request.POST.get('equip_sort')
+            if equip_sort == 'Default':
+                equip_sort_list = Equipment.objects.all().order_by('equip_name')
+            elif equip_sort == 'Building':
+                equip_sort_list = Equipment.objects.all().order_by('building')
+            elif equip_sort == 'Room':
+                equip_sort_list = Equipment.objects.all().order_by('room')
+            else:
+                equip_sort_list = Equipment.objects.all().order_by('is_equip')
+        context = {
+            'equip_sort_list': equip_sort_list,
+        }
+        return render(request, 'main/equip_list_search.html', context)
+
+    context = {
+        'equip_sort_list': equip_sort_list,
+    }
+
+    return render(request, 'main/equip_list_search.html', context)
 
 
 

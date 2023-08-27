@@ -11,6 +11,8 @@ from django.db.models import Count
 from main.models import Booking, Project, PrestartCheck
 # Create your views here.
 
+
+@login_required(login_url='main_app:login')
 def report_home(request):
     today = timezone.now().date()
     twelve_months_ago = today - timedelta(days=365)

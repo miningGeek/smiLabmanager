@@ -42,6 +42,7 @@ urlpatterns = [
     path('edit_add_project/<project_id>', views.edit_add_project, name='edit_add_project'),
     path('delete_add_project/<project_id>', views.delete_add_project, name='delete_add_project'),
     path('equip_group', views.add_equip_group, name='add_equip_group'),
+    path('equip_list_search', views.equip_list_search, name='equip_list_search'),
     path('monthly_report_form', views.monthly_report_form, name ='monthly_report_form'),
     path('generate_monthly_report', views.generate_monthly_report, name='generate_monthly_report'),
 

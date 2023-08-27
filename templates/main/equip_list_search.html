@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Equipment Listing</h2>
+<br>
+<h3> Sort By</h3>
+<div class="table_sort">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="radio" value="Default" name="equip_sort"/> Equipment
+        <input type="radio" value="Building" name="equip_sort"/> Building
+        <input type="radio" value="Room" name="equip_sort"/> Room
+        <input type="radio" value="is_equip" name="equip_sort"/> Is Equipment
+
+        <input class="btn btn-secondary" type="submit" value="Filter" name="equipment_sort">
+    </form>
+</div>
+
+<table id="equipment_table" class="table table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Equipment Name</th>
+        <th scope="col">Building</th>
+        <th scope="col">Room</th>
+        <th scope="col">Is Equipment</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if equip_sort_list %}
+        {% for equip in equip_sort_list %}
+            <tr>
+                <th scope="row">{{equip.equip_name}}</th>
+                <th scope="row">{{equip.building}}</th>
+                <th scope="row">{{equip.room}}</th>
+                <th scope="row">{{equip.is_equip}}</th>
+                <th scope="row">{{equip.description}}</th>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}
