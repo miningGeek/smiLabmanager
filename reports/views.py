@@ -91,3 +91,75 @@ def report_home(request):
 
 
     return render(request, 'reports/report_home.html', context)
+
+
+@login_required(login_url='main_app:login')
+def report_jkmrc(request):
+    today = timezone.now().date()
+
+    twelve_months_ago = today - timedelta(days=365)
+    three_months_ago = today - timedelta(days=90)
+
+    # Retrieve booking data for the last 12 months
+    bookings = Booking.objects.filter(start_date__gte=twelve_months_ago, group__centres__name='JKMRC')
+    bookings_days = Booking.objects.filter(start_date__gte=three_months_ago)
+
+    # Calculate total hours for each month
+    months_hours = {}
+    for booking in bookings:
+        month = booking.start_date.strftime('%Y-%m')
+        hours = booking.num_hours
+        if month in months_hours:
+            months_hours[month] += hours
+        else:
+            months_hours[month] = hours
+
+    labels_hours = [datetime.strptime(month, '%Y-%m').strftime('%m-%Y') for month in months_hours.keys()]
+    data_hours = list(months_hours.values())
+    sorted_hours_data = sorted(zip(labels_hours, data_hours), key=lambda x: x[0])
+
+    # Unpack the sorted data
+    labels_hours = [label for label, _ in sorted_hours_data]
+    data_hours = [data for _, data in sorted_hours_data]
+
+    context = {
+        'labels_hours': labels_hours,
+        'data_hours': data_hours,
+    }
+    return render(request, 'reports/report_jkmrc.html', context)
+
+
+@login_required(login_url='main_app:login')
+def report_jktech(request):
+    today = timezone.now().date()
+
+    twelve_months_ago = today - timedelta(days=365)
+    three_months_ago = today - timedelta(days=90)
+
+    # Retrieve booking data for the last 12 months
+    bookings = Booking.objects.filter(start_date__gte=twelve_months_ago, group__centres__name='JKTech')
+    bookings_days = Booking.objects.filter(start_date__gte=three_months_ago)
+
+    # Calculate total hours for each month
+    months_hours = {}
+    for booking in bookings:
+        month = booking.start_date.strftime('%Y-%m')
+        hours = booking.num_hours
+        if month in months_hours:
+            months_hours[month] += hours
+        else:
+            months_hours[month] = hours
+
+    labels_hours = [datetime.strptime(month, '%Y-%m').strftime('%m-%Y') for month in months_hours.keys()]
+    data_hours = list(months_hours.values())
+    sorted_hours_data = sorted(zip(labels_hours, data_hours), key=lambda x: x[0])
+
+    # Unpack the sorted data
+    labels_hours = [label for label, _ in sorted_hours_data]
+    data_hours = [data for _, data in sorted_hours_data]
+
+    context = {
+        'labels_hours': labels_hours,
+        'data_hours': data_hours,
+    }
+    return render(request, 'reports/report_jktech.html', context)
