@@ -650,6 +650,7 @@ def generate_monthly_report(request):
     return response
 
 
+@login_required(login_url='main_app:login')
 def equip_list_search(request):
     equip_sort_list = Equipment.objects.all().order_by('equip_name')
 

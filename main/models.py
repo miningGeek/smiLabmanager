@@ -27,6 +27,14 @@ confirm = [
     ('NA', 'NA'),
 ]
 
+sample_status = [
+    ('Not Received','Not Received'),
+    ('Received','Received'),
+    ('Disposed','Disposed'),
+    ('Returned','Returned'),
+    ('Quarantine','Quarantine'),
+]
+
 class StatusChoice(models.Model):
     status = models.CharField(max_length=30)
 
@@ -206,6 +214,22 @@ class PrestartCheck(models.Model):
 
     def __str__(self):
         return self.equip_name
+
+
+class Sample(models.Model):
+    tracking_id = models.IntegerField(blank=True)
+    sample_owner = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
+    centre_owner = models.ForeignKey(ResearchCentres, on_delete=models.SET_NULL, null=True, blank=True)
+    group_owner = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
+    client_site = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
+    sample_location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+    description = models.TextField(max_length=500, blank=True)
+    sample_status = models.CharField(max_length=25, choices=sample_status, blank=True)
+    hazard_advice = models.BooleanField(blank=True, null=True)
+    date_received = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.tracking_id
 
 
 

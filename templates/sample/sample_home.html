@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+    <script src="{% static 'main/js/bookingreq.js' %}"></script>
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+    <h2 style="margin-left: 30px; margin-top: 30px;">Sample Home</h2>
+
+    <table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Tracking ID</th>
+        <th scope="col">Sample Owner</th>
+        <th scope="col">Centre Owner</th>
+        <th scope="col">Group Owner</th>
+        <th scope="col">Client Site</th>
+        <th scope="col">Sample Location</th>
+        <th scope="col">Description</th>
+        <th scope="col">Sample Status</th>
+        <th scope="col">Sample Hazard Advice</th>
+        <th scope="col">Date Received</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if samples %}
+            {% for sample in samples %}
+                <tr>
+                    <th scope="row">{{sample.tracking_id}}</th>
+                    <th scope="row">{{sample.sample_owner}}</th>
+                    <th scope="row">{{sample.centre_owner}}</th>
+                    <th scope="row">{{sample.group_owner}}</th>
+                    <th scope="row">{{sample.client_site}}</th>
+                    <th scope="row">{{sample.sample_location}}</th>
+                    <th scope="row">{{sample.description}}</th>
+                    <th scope="row">{{sample.sample_status}}</th>
+                    <th scope="row">{{sample.hazard_advice}}</th>
+                    <th scope="row">{{sample.date_received}}</th>
+
+                    <td></td>
+                    <td></td>
+
+                    <td class="text-right">
+                        <a href="" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'sample_app:delete_sample' sample.id %}" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+{% endblock %}

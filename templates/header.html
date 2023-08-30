@@ -126,9 +126,23 @@
         </div>
       </li>
       {% endif %}
+      {% if request.user.groups.all.0.name == 'Coordinator' %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Samples
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'sample_app:sample_home' %}">Sample Dashboard</a>
+          <a class="dropdown-item" href="{% url 'sample_app:add_sample' %}">Add Sample</a>
+          <a class="dropdown-item" href="{% url 'sample_app:sample_location' %}">Sample Locations</a>
+          <a class="dropdown-item" href="{% url 'sample_app:sample_client' %}">Sample Clients</a>
+
+        </div>
+      </li>
+      {% endif %}
 
     </ul>
-    <span class="hello-msg">Hello</span>
+
     <span><a class="hello-msg" href="{% url 'main_app:logout' %}">Logout</a></span>
   </div>
 </nav>
