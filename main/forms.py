@@ -58,8 +58,10 @@ class AddEquipmentForm(ModelForm):
             'building_level',
             'room',
             'description',
+            'group_owner',
             'is_equip',
             'equip_group',
+
         )
         widgets = {
             'equip_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),

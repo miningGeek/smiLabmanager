@@ -136,10 +136,10 @@ class Equipment(models.Model):
     building = models.ForeignKey('Building', on_delete=models.SET_NULL, null=True)
     is_equip = models.BooleanField(blank=True, null=True)
     equip_group = models.ForeignKey(EquipmentGroup, on_delete=models.SET_NULL,null=True, blank=True)
+    group_owner = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.equip_name
-
 
 
 class AppUser(models.Model):
@@ -193,10 +193,12 @@ class PrestartCheck(models.Model):
     test_tag = models.CharField(max_length=10, choices=basic_confirm, blank=True)
     elect_lead = models.CharField(max_length=10, choices=basic_confirm, blank=True)
     stop_button = models.CharField(max_length=10, choices=confirm, blank=True)
+    safety_stop = models.CharField(max_length=10, choices=confirm, blank=True)
     guarding = models.CharField(max_length=10, choices=confirm, blank=True)
     interlock = models.CharField(max_length=10, choices=confirm, blank=True)
     rubber_strap = models.CharField(max_length=10, choices=confirm, blank=True)
     dust_extract = models.CharField(max_length=10, choices=confirm, blank=True)
+    counter = models.CharField(max_length=10, choices=confirm, blank=True)
     hyd_pump = models.CharField(max_length=10, choices=confirm, blank=True)
     hyd_oil_level = models.CharField(max_length=10, choices=confirm, blank=True)
     water_elect =models.CharField(max_length=10, choices=confirm, blank=True)
@@ -210,6 +212,8 @@ class PrestartCheck(models.Model):
     filter_mat = models.CharField(max_length=10, choices=confirm, blank=True)
     glass_bott = models.CharField(max_length=10, choices=confirm, blank=True)
     fume_filter = models.CharField(max_length=10, choices=confirm, blank=True)
+    battery_water = models.CharField(max_length=10, choices=confirm, blank=True)
+    battery_condition = models.CharField(max_length=10, choices=confirm, blank=True)
     comments = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
