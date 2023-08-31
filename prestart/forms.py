@@ -103,6 +103,7 @@ class AddSmallJawPrestartForm(ModelForm):
             'elect_lead',
             'stop_button',
             'guarding',
+            'interlock',
             'dust_extract',
             'comments',
         )
@@ -115,6 +116,7 @@ class AddSmallJawPrestartForm(ModelForm):
             'elect_lead': 'Electrical lead undamaged',
             'stop_button': 'Stop button working',
             'guarding': 'Guarding in place',
+            'interlock': 'Interlock working - Boyd Crusher Only',
             'dust_extract': 'Dust Extract on',
             'comments': 'Any Comments',
 
@@ -252,7 +254,9 @@ class AddBallMillPrestartForm(ModelForm):
             'stop_button',
             'guarding',
             'interlock',
+            'counter',
             'dust_extract',
+            'air_pressure',
             'comments',
         )
         labels = {
@@ -265,6 +269,8 @@ class AddBallMillPrestartForm(ModelForm):
             'stop_button': 'Stop button working',
             'guarding': 'Guarding in place',
             'interlock': 'Interlock working',
+            'counter': 'Counter working & RPM at 73',
+            'air_pressure': 'Air pressure correct & lift/lower working',
             'dust_extract': 'Dust extraction fitted & on',
             'comments': 'Any Comments',
 
@@ -327,6 +333,7 @@ class AddDropWeightPrestartForm(ModelForm):
             'sop_ra',
             'guarding',
             'interlock',
+            'safety_stop',
             'dust_extract',
             'comments',
         )
@@ -337,6 +344,7 @@ class AddDropWeightPrestartForm(ModelForm):
             'sop_ra': 'Read SWM & RA',
             'guarding': 'Guarding in place',
             'interlock': 'Interlock working',
+            'safety_stop': 'Safety Stop engaging',
             'dust_extract': 'Dust extraction in place & working',
             'comments': 'Any Comments',
 

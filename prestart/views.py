@@ -19,7 +19,7 @@ def pre_home(request):
 
 @login_required(login_url='main_app:login')
 def prestart_list(request):
-    prestarts = PrestartCheck.objects.all()
+    prestarts = PrestartCheck.objects.all().order_by('-prestart_date')
     context ={
        'prestarts': prestarts
     }
