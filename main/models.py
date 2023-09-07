@@ -83,19 +83,25 @@ class Project(models.Model):
 
 class Client(models.Model):
     company_name = models.CharField(max_length=150)
-    site_name = models.CharField(max_length=150)
-    description = models.CharField(max_length=500)
-    site_contact_name = models.CharField(max_length=250, blank=True)
-    site_contact_email = models.CharField(max_length=250, blank=True)
-    client_concat_name = models.CharField(max_length=300)
-
-    def save(self, *args, **kwargs):
-        self.client_concat_name = f"{self.company_name} {self.site_name}"
-        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.client_concat_name
+        return self.company_name
 
+
+class ClientSite(models.Model):
+    site_name = models.CharField(max_length=250)
+    company_name = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.site_name
+
+
+class ClientContact(models.Model):
+    client_name = models.CharField(max_length=350)
+    client_number = models.IntegerField()
+    client_email = models.CharField(max_length=500)
+    company_name = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    site_name = models.ForeignKey(ClientSite, on_delete=models.SET_NULL, null=True)
 
 class Building(models.Model):
     building_name = models.CharField(max_length=100)
@@ -148,6 +154,7 @@ class AppUser(models.Model):
     centre = models.ForeignKey('ResearchCentres', on_delete=models.SET_NULL, null=True)
     group = models.ForeignKey('ResearchGroup', on_delete=models.SET_NULL, null=True)
     status_active = models.BooleanField(default=True)
+    ute_auth = models.BooleanField(default=False)
 
     def __str__(self):
         return self.first_name
@@ -225,7 +232,9 @@ class Sample(models.Model):
     sample_owner = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
     centre_owner = models.ForeignKey(ResearchCentres, on_delete=models.SET_NULL, null=True, blank=True)
     group_owner = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
-    client_site = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
+    client_site = models.ForeignKey(ClientSite, on_delete=models.SET_NULL, null=True)
+    client_contact = models.ForeignKey(ClientContact, on_delete=models.SET_NULL, null=True)
     sample_location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField(max_length=500, blank=True)
     sample_status = models.CharField(max_length=25, choices=sample_status, blank=True)

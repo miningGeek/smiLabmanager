@@ -113,6 +113,7 @@ from .models import Booking, Equipment, StatusChoice
 
 
 class AddBookingForm(ModelForm):
+
     group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
     proj_data = forms.ModelChoiceField(queryset=Project.objects.all())
     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
@@ -153,49 +154,6 @@ class AddBookingForm(ModelForm):
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Approved'}),
 
         }
-
-
-# class AddBookingForm(ModelForm):
-#     group = forms.ModelChoiceField(queryset=ResearchGroup.objects.all())
-#     proj_data = forms.ModelChoiceField(queryset=Project.objects.all())
-#     equip_name = forms.ModelChoiceField(queryset=Equipment.objects.all())
-#     room = forms.ModelChoiceField(queryset=Rooms.objects.all())
-#     building = forms.ModelChoiceField(queryset=Building.objects.all())
-#
-#     class Meta:
-#         model = Booking
-#         fields = (
-#             'user_name',
-#             'group',
-#             'proj_data',
-#             'building',
-#             'room',
-#             'equip_name',
-#             'start_date',
-#             'shift',
-#             'num_hours',
-#             'status',
-#
-#         )
-#         labels = {
-#             'user_name': 'User Name',
-#             'group': 'Group',
-#             'proj_data': 'Project Info',
-#             'building': 'Building',
-#             'room': 'Room',
-#             'equip_name': 'Equipment',
-#             'start_date': 'Date required',
-#             'shift': 'Shift',
-#             'num_hours': 'Hours Expected',
-#             'status': 'Status',
-#
-#         }
-#         widgets = {
-#
-#             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
-#             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Approved'}),
-#
-#         }
 
 
 class EditBookingForm(ModelForm):
@@ -260,6 +218,7 @@ class AddUserForm(ModelForm):
             'centre',
             'group',
             'status_active',
+            'ute_auth',
         )
         labels = {
             'user_name': 'User Name',
@@ -267,6 +226,7 @@ class AddUserForm(ModelForm):
             'centre': 'Research Centre',
             'group': 'Group',
             'status_active': 'Active',
+            'ute_auth': 'Authorised Ute Use',
 
         }
 

@@ -334,7 +334,6 @@ def booking(request):
     }
     return render(request, 'main/booking.html', context)
 
-
 @login_required(login_url='main_app:login')
 def edit_booking(request, booking_id):
     bookings = Booking.objects.get(pk=booking_id)
@@ -452,11 +451,11 @@ def get_rooms(request):
 
 
 def get_equipments(request):
-    room_id = request.GET.get('room_id')
-    building_id = request.GET.get('building_id')
-    equipments = Equipment.objects.filter(Q(room_id=room_id) & Q(building_id=building_id))
-    data = [{'id': equipment.id, 'name': equipment.equip_name} for equipment in equipments]
-    return JsonResponse(data, safe=False)
+     room_id = request.GET.get('room_id')
+     building_id = request.GET.get('building_id')
+     equipments = Equipment.objects.filter(Q(room_id=room_id) & Q(building_id=building_id))
+     data = [{'id': equipment.id, 'name': equipment.equip_name} for equipment in equipments]
+     return JsonResponse(data, safe=False)
 
 
 def get_projects(request):

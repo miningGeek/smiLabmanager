@@ -9,7 +9,7 @@ from calendar import month_name
 from django.db.models import Count
 
 from main.models import *
-from .forms import *
+from .forms import AddSampleClientSiteForm, AddSampleClientForm, AddSampleLocationForm, AddSampleForm
 
 # Create your views here.
 
@@ -132,3 +132,24 @@ def delete_sample_client(request, client_id):
     clients.delete()
     return redirect('sample_app:sample_client')
 
+
+@login_required(login_url='main_app:login')
+def sample_client_site(request):
+
+    client_sites = ClientSite.objects.all().order_by('site_name')
+
+    if request.method == 'POST':
+        form = AddSampleClientSiteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sample_app:sample_client_site')
+    else:
+        form = AddSampleClientSiteForm
+
+
+    context = {
+        'client_sites': client_sites,
+        'form': form,
+
+    }
+    return render(request, 'sample/sample_client_site.html', context)

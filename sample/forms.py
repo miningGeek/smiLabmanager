@@ -56,18 +56,32 @@ class AddSampleClientForm(ModelForm):
         model = Client
         fields = (
             'company_name',
+
+
+        )
+        labels = {
+            'company_name': 'Company Name',
+
+        }
+        widgets = {
+            'company_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
+        }
+
+
+class AddSampleClientSiteForm(ModelForm):
+    company_name = forms.ModelChoiceField(queryset=Client.objects.all())
+    class Meta:
+        model = ClientSite
+        fields = (
+            'company_name',
             'site_name',
-            'site_contact_name',
-            'site_contact_email',
-            'description',
+
 
         )
         labels = {
             'company_name': 'Company Name',
             'site_name': 'Site Name',
-            'site_contact_name': 'Site Contact Name',
-            'site_contact_email': 'Site Contact Email',
-            'description': 'Description',
+
         }
         widgets = {
             'company_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),

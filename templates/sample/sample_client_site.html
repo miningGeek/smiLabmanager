@@ -10,7 +10,7 @@
 
 {% block content %}
 
-<h2>Sample Clients</h2>
+<h2>Sample Client Sites</h2>
 
 <div class="form_add">
       <form action="" method="POST">
@@ -29,6 +29,7 @@
     <thead class="thead-dark">
     <tr>
         <th scope="col">Company Name</th>
+        <th scope="col">Site Name</th>
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -40,20 +41,21 @@
     </tr>
     </thead>
     <tbody>
-          {% if clients %}
-            {% for client in clients %}
+          {% if client_sites %}
+            {% for site in client_sites %}
                 <tr>
-                    <th scope="row">{{client.company_name}}</th>
+                    <th scope="row">{{site.company_name}}</th>
+                    <th scope="row">{{site.site_name}}</th>
 
 
                     <td></td>
                     <td></td>
 
                     <td class="text-right">
-                        <a href="{% url 'sample_app:edit_sample_client' client.id %}" class="btn btn-secondary">Edit</a>
+                        <a href="" class="btn btn-secondary">Edit</a>
                     </td>
                     <td>
-                        <a href="{% url 'sample_app:delete_sample_client' client.id %}" class="btn btn-secondary m1-2">Remove</a>
+                        <a href="" class="btn btn-secondary m1-2">Remove</a>
                     </td>
 
                 </tr>
