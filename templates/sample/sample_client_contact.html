@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block css_files %}
+
+  {% endblock %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<h2>Sample Client Contacts</h2>
+
+<div class="form_add">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
+
+    </form>
+</div>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Company Name</th>
+        <th scope="col">Site Name</th>
+        <th scope="col">Client Name</th>
+        <th scope="col">Client Number</th>
+        <th scope="col">Client Email</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+          {% if client_contacts %}
+            {% for contact in client_contacts %}
+                <tr>
+                    <th scope="row">{{contact.company_name}}</th>
+                    <th scope="row">{{contact.site_name}}</th>
+                    <th scope="row">{{contact.client_name}}</th>
+                    <th scope="row">{{contact.client_number}}</th>
+                    <th scope="row">{{contact.client_email}}</th>
+
+
+
+                    <td></td>
+                    <td></td>
+
+                    <td class="text-right">
+                        <a href="" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="" class="btn btn-secondary m1-2">Remove</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+          {% endif %}
+
+
+    </tbody>
+
+</table>
+
+
+
+{% endblock %}
