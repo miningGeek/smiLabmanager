@@ -27,6 +27,8 @@ def report_home(request):
     for booking in bookings:
         month = booking.start_date.strftime('%Y-%m')
         hours = booking.num_hours
+        if hours is None:
+            hours = 0
         if month in months_hours:
             months_hours[month] += hours
         else:
@@ -109,6 +111,8 @@ def report_jkmrc(request):
     for booking in bookings:
         month = booking.start_date.strftime('%Y-%m')
         hours = booking.num_hours
+        if hours is None:
+            hours = 0
         if month in months_hours:
             months_hours[month] += hours
         else:
@@ -145,6 +149,8 @@ def report_jktech(request):
     for booking in bookings:
         month = booking.start_date.strftime('%Y-%m')
         hours = booking.num_hours
+        if hours is None:
+            hours = 0
         if month in months_hours:
             months_hours[month] += hours
         else:
