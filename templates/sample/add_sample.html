@@ -17,7 +17,34 @@
         <form action="" method="POST" style="margin-left: 20px;">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            {{ form.tracking_id.label_tag }} {{ form.tracking_id }}
+            {{ form.sample_owner.label_tag }} {{ form.sample_owner }}
+            {{ form.centre_owner.label_tag }} {{ form.centre_owner }}
+            {{ form.group_owner.label_tag }} {{ form.group_owner }}
+            {{ form.client.label_tag }} {{ form.client }}
+            {{ form.client_site.label_tag }} {{ form.client_site }}
+            {{ form.client_contact.label_tag }} {{ form.client_contact }}
+
+            <!-- Manually render the Sample Location field -->
+            <div class="form-group">
+                <label for="{{ form.sample_location.id_for_label }}">Sample Location:</label>
+                <table>
+                    {% for location in form.sample_location %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            </tr><tr>
+                        {% endif %}
+                        <td>{{ location.tag }}</td>
+                        <td>{{ location.choice_label }}</td>
+                    {% endfor %}
+                </table>
+            </div>
+
+            {{ form.hazard_advice.label_tag }} {{ form.hazard_advice }}
+            {{ form.date_received.label_tag }} {{ form.date_received }}
+            {{ form.sample_status.label_tag }} {{ form.sample_status }}
+            {{ form.description.label_tag }} {{ form.description }}
+
+
 
             <input id="form_submit" type="submit" value="Submit" class="btn btn-success">
         </form>

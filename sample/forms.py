@@ -6,7 +6,7 @@ from main.models import *
 
 class AddSampleForm(ModelForm):
     client = forms.ModelChoiceField(queryset=Client.objects.all())
-    #site_name = forms.ModelChoiceField(queryset=ClientSite.objects.all())
+    sample_location = forms.ModelMultipleChoiceField(queryset=Location.objects.all(), widget=forms.CheckboxSelectMultiple,)
 
     class Meta:
         model = Sample
@@ -24,6 +24,7 @@ class AddSampleForm(ModelForm):
             'sample_status',
             'description',
 
+
         )
         labels = {
             'tracking_id': 'Sample Tracking ID',
@@ -31,7 +32,6 @@ class AddSampleForm(ModelForm):
             'centre_owner': 'Research Centre',
             'group_owner': 'Group',
             'client_site': 'Client Site',
-            'sample_location': 'Storage Location',
             'hazard_advice': 'Hazard Advice Provided',
             'date_received': 'Date Received',
             'sample_status': 'Status of Sample',
@@ -42,6 +42,7 @@ class AddSampleForm(ModelForm):
             'company_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Required'}),
             'date_received': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
         }
+
 
 
 class AddSampleLocationForm(ModelForm):

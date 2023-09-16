@@ -49,7 +49,12 @@
                     <th scope="row">{{sample.client}}</th>
                     <th scope="row">{{sample.client_site}}</th>
                     <th scope="row">{{sample.client_contact}}</th>
-                    <th scope="row">{{sample.sample_location}}</th>
+                    <th scope="row">
+                {% for location in sample.sample_location.all %}
+                    {{ location.location }}
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </th>
                     <th scope="row">{{sample.description}}</th>
                     <th scope="row">{{sample.sample_status}}</th>
                     <th scope="row">{{sample.hazard_advice}}</th>

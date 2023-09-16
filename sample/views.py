@@ -33,7 +33,7 @@ def add_sample(request):
             form.save()
             return redirect('sample_app:sample_home')
     else:
-        form = AddSampleForm
+        form = AddSampleForm()
     context = {
         'form': form,
     }

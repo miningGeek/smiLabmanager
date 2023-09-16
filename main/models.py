@@ -103,6 +103,9 @@ class ClientContact(models.Model):
     company_name = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     site_name = models.ForeignKey(ClientSite, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.client_name
+
 class Building(models.Model):
     building_name = models.CharField(max_length=100)
 
@@ -235,7 +238,7 @@ class Sample(models.Model):
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
     client_site = models.ForeignKey(ClientSite, on_delete=models.SET_NULL, null=True)
     client_contact = models.ForeignKey(ClientContact, on_delete=models.SET_NULL, null=True)
-    sample_location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+    sample_location = models.ManyToManyField(Location, null=True, blank=True)
     description = models.TextField(max_length=500, blank=True)
     sample_status = models.CharField(max_length=25, choices=sample_status, blank=True)
     hazard_advice = models.BooleanField(blank=True, null=True)
@@ -243,6 +246,7 @@ class Sample(models.Model):
 
     def __str__(self):
         return self.tracking_id
+
 
 
 
