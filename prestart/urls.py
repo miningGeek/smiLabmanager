@@ -28,5 +28,6 @@ urlpatterns = [
     path('size_analyser_prestart', views.size_analyser_prestart, name='size_analyser_prestart'),
     path('cyclone_rig_prestart', views.cyclone_rig_prestart, name='cyclone_rig_prestart'),
     path('cyclo_sizer_prestart', views.cyclo_sizer_prestart, name='cyclo_sizer_prestart'),
+    path('electric_jack_prestart', views.electric_jack_prestart, name='electric_jack_prestart'),
 
 ]

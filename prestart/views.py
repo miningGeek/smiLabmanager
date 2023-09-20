@@ -428,3 +428,22 @@ def cyclo_sizer_prestart(request):
         'form': form,
     }
     return render(request, 'prestart/cyclo_sizer_prestart.html', context)
+
+
+def electric_jack_prestart(request):
+    form = AddElectricJackForm(request.POST)
+
+    # Filter the 'equip_name' field queryset based on your criteria
+    # For example, let's say you want to show only certain equipment names
+    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Pallet-Jack')
+    print(filtered_equip_names)
+    form.fields['equip_name'].queryset = filtered_equip_names
+    if form.is_valid():
+        form.save()
+        return redirect('prestart_app:pre_thank')
+    else:
+        form = AddElectricJackForm(use_required_attribute=True)
+    context = {
+        'form': form,
+    }
+    return render(request, 'prestart/electric_jack_prestart.html', context)
