@@ -4,6 +4,7 @@
 {% block css_files %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <style>
         .chart-container {
             display: flex;
@@ -41,6 +42,7 @@
                         }]
                     },
                     options: {
+
                         scales: {
                             y: {
                                 beginAtZero: true
@@ -62,7 +64,7 @@
                     data: {
                         labels: projectsLabels,
                         datasets: [{
-                            label: 'Number of Projects',
+                            label: 'Number of Active Projects',
                             data: projectsData,
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             borderColor: 'rgba(255, 99, 132, 1)',
@@ -142,7 +144,47 @@
                     });
                 </script>
             </div>
+        <div class="chart">
+                <canvas id="PreStartDayChart"></canvas>
+                <script>
+                    var psdaysCtx = document.getElementById('PreStartDayChart').getContext('2d');
+                    var psdaysLabels = {{ labels_ps_days | safe }};
+                    var psdaysData = {{ data_ps_days | safe }};
+
+                    var PreStartDayChart = new Chart(psdaysCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: psdaysLabels,
+                            datasets: [{
+                                label: 'Prestarts per Day Count',
+                                data: psdaysData,
+                                backgroundColor: 'rgba(100, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
     </div>
 
-
+{{pp_months_hours}}
+<br>
+{{jkt_months_hours}}
+<br>
+{{comb_months_hours}}
+<br>
+{{sep_months_hours}}
+<br>
+{{chem_months_hours}}
+<br>
+{{appco_months_hours}}
 {% endblock %}
