@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login, logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, response
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta, datetime, date
@@ -8,6 +8,7 @@ from django.db.models.functions import ExtractYear, ExtractMonth
 from calendar import month_name
 from django.db.models import Count
 from collections import defaultdict
+import csv
 
 from main.models import Booking, Project, PrestartCheck
 # Create your views here.
@@ -299,3 +300,25 @@ def report_jktech(request):
         'data_hours': data_hours,
     }
     return render(request, 'reports/report_jktech.html', context)
+
+
+# Generate csv file bookings
+def bookings_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Diposition'] = 'attachment; filename=bookings.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+
+    # Designate bookings model
+    bookings = Booking.objects.all()
+
+    # Add column headings to csv file
+    writer.writerow(['User Name', 'Project Name', 'Request Date', 'Group', 'Equipment Name', 'Start Date', 'Shift', 'Num of Hours', 'Status'])
+
+    # loop through Booking and output to csv
+    for booking in bookings:
+        writer.writerow([booking.user_name, booking.proj_data, booking.request_date, booking.group, booking.equip_name, booking.start_date, booking.shift, booking.num_hours, booking.status])
+        
+
+    return response
