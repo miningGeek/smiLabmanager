@@ -10,7 +10,7 @@ from django.db.models import Count
 from collections import defaultdict
 import csv
 
-from main.models import Booking, Project, PrestartCheck
+from main.models import Booking, Project, PrestartCheck, Equipment
 # Create your views here.
 
 
@@ -319,6 +319,54 @@ def bookings_csv(request):
     # loop through Booking and output to csv
     for booking in bookings:
         writer.writerow([booking.user_name, booking.proj_data, booking.request_date, booking.group, booking.equip_name, booking.start_date, booking.shift, booking.num_hours, booking.status])
-        
+
+    return response
+
+
+def equipment_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Diposition'] = 'attachment; filename=equipment.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+
+    # Designate bookings model
+    equipments = Equipment.objects.all()
+
+    # Add column headings to csv file
+    writer.writerow(
+        ['Equipment Name', 'Description', 'Room', 'Building Level', 'Building', 'Is Equipment', 'Equipment Group', 'Group'])
+
+    # loop through Booking and output to csv
+    for equipment in equipments:
+        writer.writerow([equipment.equip_name, equipment.description, equipment.room, equipment.building_level, equipment.building, equipment.is_equip, equipment.equip_group, equipment.group_owner])
+
+    return response
+
+
+def prestart_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Diposition'] = 'attachment; filename=prestart.csv'
+
+    # Create a csv writer
+    writer = csv.writer(response)
+
+    # Designate bookings model
+    prestarts = PrestartCheck.objects.all()
+
+    # Add column headings to csv file
+    writer.writerow(
+        ['User Name', 'Equipment', 'Prestart Date', 'Trained', 'SOP RA', 'Test Tag', 'Elect Lead', 'Stop Button',
+         'Safety Stop', 'guarding', 'interlock', 'Rubber Strap', 'Dust Extract', 'Counter', 'Hyd Pump', 'Hyd Oil Level', 'Water Electrical', 'Water Level',
+         'Air Pressure', 'Cable', 'Seals', 'Drainage', 'Housekeeping', 'Anti Slip Mats', 'Noise Baffles', 'Filter Mat', 'Glass Bottle', 'Fume Filter', 'Battery Water', 'Battery Cond', 'Comments'])
+
+    # loop through Booking and output to csv
+    for prestart in prestarts:
+        writer.writerow([prestart.username, prestart.equip_name, prestart.trained, prestart.sop_ra, prestart.test_tag, prestart.elect_lead,
+                         prestart.stop_button, prestart.safety_stop, prestart.guarding, prestart.interlock, prestart.rubber_strap,
+                         prestart.dust_extract, prestart.counter, prestart.hyd_pump, prestart.hyd_oil_level, prestart.water_elect,
+                         prestart.water_level, prestart.air_pressure, prestart.cable, prestart.seals, prestart.drainage, prestart.housekeeping,
+                         prestart.anti_slip, prestart.noise_baffles, prestart.filter_mat, prestart.glass_bott, prestart.fume_filter,
+                         prestart.battery_water, prestart.battery_condition, prestart.comments])
 
     return response
