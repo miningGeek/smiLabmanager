@@ -362,7 +362,7 @@ def prestart_csv(request):
 
     # loop through Booking and output to csv
     for prestart in prestarts:
-        writer.writerow([prestart.username, prestart.equip_name, prestart.trained, prestart.sop_ra, prestart.test_tag, prestart.elect_lead,
+        writer.writerow([prestart.username, prestart.equip_name, prestart.prestart_date, prestart.trained, prestart.sop_ra, prestart.test_tag, prestart.elect_lead,
                          prestart.stop_button, prestart.safety_stop, prestart.guarding, prestart.interlock, prestart.rubber_strap,
                          prestart.dust_extract, prestart.counter, prestart.hyd_pump, prestart.hyd_oil_level, prestart.water_elect,
                          prestart.water_level, prestart.air_pressure, prestart.cable, prestart.seals, prestart.drainage, prestart.housekeeping,
