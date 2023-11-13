@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, response
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta, datetime, date
-from django.db.models.functions import ExtractYear, ExtractMonth
+from django.db.models.functions import ExtractYear, ExtractMonth, TruncDate
 from calendar import month_name
 from django.db.models import Count
 from collections import defaultdict
@@ -21,9 +21,22 @@ def report_home(request):
     three_months_ago = today - timedelta(days=90)
 
     # Retrieve booking data for the last 12 months
-    bookings = Booking.objects.filter(start_date__gte=twelve_months_ago)
-    bookings_days = Booking.objects.filter(start_date__gte = three_months_ago)
-    ps_days = PrestartCheck.objects.filter(prestart_date__gte = three_months_ago)
+    #bookings = Booking.objects.filter(start_date__gte=twelve_months_ago)
+    bookings =Booking.objects.filter(start_date__gte=three_months_ago).exclude(
+        status__in=['Cancelled', 'Rejected'])
+    #bookings_days = Booking.objects.filter(start_date__gte = three_months_ago)
+    bookings_days = Booking.objects.filter(start_date__gte=three_months_ago).exclude(
+        status__in=['Cancelled', 'Rejected'])
+
+    #ps_days = PrestartCheck.objects.filter(prestart_date__gte = three_months_ago)
+    # Calculate number of prestarts per day for last 3 months
+    ps_days = PrestartCheck.objects \
+        .filter(prestart_date__gte=three_months_ago) \
+        .annotate(day=TruncDate('prestart_date')) \
+        .values('day') \
+        .annotate(count=Count('id')) \
+        .order_by('day')
+
 
     # Calculate total hours for each month
     months_hours = {}
@@ -141,6 +154,8 @@ def report_home(request):
         .annotate(count=Count('id')) \
         .order_by('prestart_date__year', 'prestart_date__month')
 
+
+
     # Calculate number of bookings per day for last 3 months
     booking_count_per_day = {}
     for booking in bookings_days:
@@ -164,8 +179,12 @@ def report_home(request):
     ps_count_per_day = defaultdict(int)
 
     # Calculate number of prestarts for each day within the last 3 months
-    for prestart in ps_days:
-        day = prestart.prestart_date.date()  # Get the date part without time
+    # for prestart in ps_days:
+    #      day = prestart.prestart_date.date()  # Get the date part without time
+    #      ps_count_per_day[day] += 1
+
+    for prestart_day in ps_days:
+        day = prestart_day['day'].strftime('%Y-%m-%d')  # Format the date as a string
         ps_count_per_day[day] += 1
 
     # Convert the defaultdict to a regular dictionary
@@ -196,8 +215,11 @@ def report_home(request):
     data_days = list(booking_count_per_day.values())
 
     # labels for prestart days over last 3 months
-    labels_ps_days = [day.strftime('%d-%m-%y') for day in ps_count_per_day.keys()]
-    data_ps_days = list(ps_count_per_day.values())
+    #labels_ps_days = [day.strftime('%d-%m-%y') for day in ps_count_per_day.keys()]
+    #labels_ps_days = [day['day'].strftime('%d-%m-%y') for day in ps_days]
+    #data_ps_days = list(ps_count_per_day.values())
+    labels_ps_days = [day['day'].strftime('%d-%m-%y') for day in ps_days]
+    data_ps_days = [day['count'] for day in ps_days]
 
 
     #labels_hours.reverse()
