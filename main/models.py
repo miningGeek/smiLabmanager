@@ -169,7 +169,7 @@ class AppUser(models.Model):
 class Booking(models.Model):
     user_name = models.ForeignKey(AppUser, on_delete=models.SET_NULL, null=True, blank=True)
     proj_data = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
-    request_date = models.DateField(auto_now_add=True)
+    request_date = models.DateTimeField(default=timezone.now)
     group = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()
