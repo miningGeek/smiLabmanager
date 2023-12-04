@@ -14,6 +14,7 @@ urlpatterns = [
     path('gilson_prestart', views.gilson_prestart, name='gilson_prestart'),
     path('wet_sieve_prestart', views.wet_sieve_prestart, name='wet_sieve_prestart'),
     path('ball_mill_prestart', views.ball_mill_prestart, name='ball_mill_prestart'),
+    path('bond_rod_prestart', views.bond_rod_prestart, name='bond_rod_prestart'),
     path('glass_splitter_prestart', views.glass_splitter_prestart, name='glass_splitter_prestart'),
     path('drop_weight_prestart', views.drop_weight_prestart, name='drop_weight_prestart'),
     path('wet_mill_prestart', views.wet_mill_prestart, name='wet_mill_prestart'),

@@ -295,9 +295,10 @@ class AddBondRodMillPrestartForm(ModelForm):
             'stop_button',
             'guarding',
             'interlock',
+            'air_pressure',
+            'mill_param',
             'counter',
             'dust_extract',
-            'air_pressure',
             'comments',
         )
         labels = {
@@ -310,8 +311,9 @@ class AddBondRodMillPrestartForm(ModelForm):
             'stop_button': 'Stop button working',
             'guarding': 'Guarding in place',
             'interlock': 'Interlock working',
+            'air_pressure': 'Air pressure correct 500KPa (400KPa min - 600KPa Max ',
+            'mill_param': 'Run Mill 10 cycles, check tilt after 8 cycles, mill stops at 10 cycles - Run 30 cycles & check',
             'counter': 'Counter working & RPM at 46',
-            'air_pressure': 'Air pressure correct & lift/lower working',
             'dust_extract': 'Dust extraction fitted & on',
             'comments': 'Any Comments',
 
