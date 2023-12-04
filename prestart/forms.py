@@ -256,7 +256,6 @@ class AddBallMillPrestartForm(ModelForm):
             'interlock',
             'counter',
             'dust_extract',
-            'air_pressure',
             'comments',
         )
         labels = {
@@ -270,6 +269,48 @@ class AddBallMillPrestartForm(ModelForm):
             'guarding': 'Guarding in place',
             'interlock': 'Interlock working',
             'counter': 'Counter working & RPM at 71',
+            'dust_extract': 'Dust extraction fitted & on',
+            'comments': 'Any Comments',
+
+        }
+        widgets = {
+            'prestart_date': widgets.DateInput(attrs={'disabled': 'disabled'}),
+        }
+
+class AddBondRodMillPrestartForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filter the 'equip_name' field queryset based on equip_group name
+        filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Bond-Rod')
+        self.fields['equip_name'].queryset = filtered_equip_names
+    class Meta:
+        model = PrestartCheck
+        fields = (
+            'username',
+            'equip_name',
+            'trained',
+            'sop_ra',
+            'test_tag',
+            'elect_lead',
+            'stop_button',
+            'guarding',
+            'interlock',
+            'counter',
+            'dust_extract',
+            'air_pressure',
+            'comments',
+        )
+        labels = {
+            'username': 'Select User',
+            'equip_name': 'Select Equipment',
+            'trained': 'Trained & Competent',
+            'sop_ra': 'Read SWM & RA',
+            'test_tag': 'Test & Tag in date',
+            'elect_lead': 'Electrical lead undamaged',
+            'stop_button': 'Stop button working',
+            'guarding': 'Guarding in place',
+            'interlock': 'Interlock working',
+            'counter': 'Counter working & RPM at 46',
             'air_pressure': 'Air pressure correct & lift/lower working',
             'dust_extract': 'Dust extraction fitted & on',
             'comments': 'Any Comments',
@@ -772,6 +813,39 @@ class AddCycloneSizerPrestartForm(ModelForm):
             'water_elect': 'Electrical lead clear of water',
             'water_level': 'Water tap on, Tank full',
             'seals': 'No leakage from cyclones',
+            'comments': 'Any Comments',
+
+        }
+        widgets = {
+            'prestart_date': widgets.DateInput(attrs={'disabled': 'disabled'}),
+        }
+
+class AddElectricJackForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filter the 'equip_name' field queryset based on equip_group name
+        filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Pallet-Jack')
+        self.fields['equip_name'].queryset = filtered_equip_names
+    class Meta:
+        model = PrestartCheck
+        fields = (
+            'username',
+            'equip_name',
+            'trained',
+            'sop_ra',
+            'battery_condition',
+            'battery_water',
+            'safety_stop',
+            'comments',
+        )
+        labels = {
+            'username': 'Select User',
+            'equip_name': 'Select Equipment',
+            'trained': 'Trained & Competent',
+            'sop_ra': 'Read SWM & RA',
+            'battery_condition': 'Battery in good condition, charge level ok',
+            'battery_water': 'Battery water level correct',
+            'safety_stop': 'Reversing stop bumper working',
             'comments': 'Any Comments',
 
         }

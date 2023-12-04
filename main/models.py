@@ -225,6 +225,7 @@ class PrestartCheck(models.Model):
     fume_filter = models.CharField(max_length=10, choices=confirm, blank=True)
     battery_water = models.CharField(max_length=10, choices=confirm, blank=True)
     battery_condition = models.CharField(max_length=10, choices=confirm, blank=True)
+    mill_param = models.CharField(max_length=10, choices=confirm, blank=True)
     comments = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
