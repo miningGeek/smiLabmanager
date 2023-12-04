@@ -72,7 +72,7 @@ def home(request):
     else:
         try:
             user = AppUser.objects.get(user_name=request.user)  # Get the AppUser object of the logged-in user
-            bookings = Booking.objects.filter(user_name=user).exclude(status='Cancelled').order_by('start_date')
+            bookings = Booking.objects.filter(user_name=user).exclude(status='Cancelled').order_by('-start_date')
         except AppUser.DoesNotExist:
             # Handle the case when the logged-in user doesn't have an associated AppUser object
             bookings = Booking.objects.none()
