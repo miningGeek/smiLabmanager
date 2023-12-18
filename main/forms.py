@@ -152,6 +152,7 @@ class AddBookingForm(ModelForm):
 
             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Approved'}),
+            'num_hours': widgets.NumberInput(attrs={'initial': 7}),
 
         }
 
