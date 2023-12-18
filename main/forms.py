@@ -152,15 +152,10 @@ class AddBookingForm(ModelForm):
 
             'start_date': widgets.DateInput(attrs={'type': 'date', 'class': 'short-field'}),
             'status': widgets.TextInput(attrs={'disabled': 'disabled', 'initial': 'Approved'}),
-            'num_hours': widgets.NumberInput(),
 
         }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            # Set initial values for 'status' and 'num_hours'
-            self.fields['status'].initial = 'Approved'
-            self.fields['num_hours'].initial = 7
+
 
 
 class EditBookingForm(ModelForm):
