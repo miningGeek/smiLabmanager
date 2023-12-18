@@ -24,4 +24,24 @@
     </div>
     <br/>
     <br/>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var selectField = document.getElementById("id_shift");
+        var nextField = document.getElementById("id_num_hours");
+
+        selectField.addEventListener("change", function () {
+            // Add  logic to update the value of the next field based on the selected option
+
+            if (selectField.value === "All Day") {
+                nextField.value = 7;
+            } else if (selectField.value === "Morning") {
+                nextField.value = 4;
+            }
+            // Add more conditions as needed
+        });
+    });
+</script>
+
 {% endblock %}
