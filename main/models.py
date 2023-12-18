@@ -174,7 +174,7 @@ class Booking(models.Model):
     group = models.ForeignKey(ResearchGroup, on_delete=models.SET_NULL, null=True, blank=True)
     equip_name = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()
-    shift = models.CharField(max_length=50, choices=shift, blank=True, default='All Day')
+    shift = models.CharField(max_length=50, choices=shift, blank=True)
     num_hours = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=50, choices=status_choice, blank=True, default='Pending')
 
