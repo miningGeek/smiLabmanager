@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 shift = [
+    ('', '-----'),
     ('All Day', 'All Day'),
     ('Morning', 'Morning'),
     ('Afternoon', 'Afternoon'),
