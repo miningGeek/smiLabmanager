@@ -165,23 +165,7 @@ def ball_mill_prestart(request):
     return render(request, 'prestart/ball_mill_prestart.html', context)
 
 
-def bond_rod_prestart(request):
-    form = AddBondRodMillPrestartForm(request.POST)
 
-    # Filter the 'equip_name' field queryset based on your criteria
-    # For example, let's say you want to show only certain equipment names
-    filtered_equip_names = Equipment.objects.filter(equip_group__equip_group__iexact='Bond-rod')
-    print(filtered_equip_names)
-    form.fields['equip_name'].queryset = filtered_equip_names
-    if form.is_valid():
-        form.save()
-        return redirect('prestart_app:pre_thank')
-    else:
-        form = AddBondRodMillPrestartForm(use_required_attribute=True)
-    context = {
-        'form': form,
-    }
-    return render(request, 'prestart/bond_rod_prestart.html', context)
 
 def glass_splitter_prestart(request):
     form = AddGlassSplitterPrestartForm(request.POST)
